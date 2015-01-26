@@ -41,7 +41,11 @@
                                         <div class ="col-sm-8">
                                           
                                             {{ Form::password('password',['class'=>'form-control']) }}
-                                         
+
+                                                <p>
+                                                {{ $errors->first ('login' , '<span class= errormessage>:message</span>')}}
+                                                </p>
+                
                                          </div>
 
 
