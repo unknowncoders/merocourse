@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['before'=>'auth'],function(){
+Route::group(['before'=>'auth|confirmed'],function(){
 
           Route::get('/',function(){
 
@@ -19,10 +19,6 @@ Route::group(['before'=>'auth'],function(){
 
           });
 
-          Route::get('logout',[
-                  'uses'=>'SessionController@destroy',
-                    'as'=>'session.destroy'
-          ]);
 });
 
 Route::group(['before'=>'guest'],function(){
@@ -39,6 +35,23 @@ Route::group(['before'=>'guest'],function(){
 
 });
 
+Route::group(['before'=>'auth'],function(){
+
+             Route::get('logout',[
+                  'uses'=>'SessionController@destroy',
+                    'as'=>'session.destroy'
+             ]);
+
+            Route::get('register/resend',[
+                    'uses' => 'UsersController@getResend',
+            ]);
+            
+            Route::post('register/resend',[
+                    'uses' => 'UsersController@postResend',
+            ]);
+            
+});
+
 
 Route::get('register/activate/{confirmationCode}',[
         'uses' => 'UsersController@confirm',
@@ -46,4 +59,4 @@ Route::get('register/activate/{confirmationCode}',[
 ]);
 
 Route::resource('users','UsersController');
-Route::resource('session','SessionController');
+Route::resource('session','SessionController',['only'=>['create','store','destroy']]);

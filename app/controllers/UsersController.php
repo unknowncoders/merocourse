@@ -68,7 +68,7 @@ class UsersController extends \BaseController {
 
             Auth::attempt(["email"=>$this->user->email,"password"=>Input::get('password')]);
 
-            return Redirect::to('/');
+            return Redirect::to('/')->with('flash_message','You have been successfully registered.');
 	}
 
 	/**
@@ -138,8 +138,21 @@ class UsersController extends \BaseController {
             $user->save();
 
 
-            return Redirect::route('session.create');
+            return Redirect::route('session.create')->with('flash_message','Your account has been activated!');
     }
 
+    public function getResend()
+    {
+            return View::make('activate');
+    }
 
+    public function postResend()
+    {
+
+             Mail::send('emails.confirm',array('confirmation_code'=>Auth::user()->confirmation_code),function($message){
+                $message->to(Auth::user()->email,Auth::user()->name)->subject('Activate your account.');
+             });
+
+             return View::make('activate')->with('flash_message','An email has been sent to you again. Please use it to complete the registration process');
+    }
 }
