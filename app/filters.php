@@ -49,6 +49,15 @@ Route::filter('guest', function()
 	}
 });
 
+Route::filter('confirmed', function()
+{
+    if( Auth::user()->confirmed !=1 )
+    {
+            return View::make('activate');
+    }
+
+});
+
 
 
 Route::filter('auth.basic', function()
