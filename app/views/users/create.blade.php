@@ -1,5 +1,13 @@
 @extends('layouts.default')
 
+@section('title')
+        Registration
+@stop
+
+@section('header')
+    @include('resources.register_header')
+@stop
+
 @section('content')
 
 <div class ="container">

@@ -1,4 +1,14 @@
-@extends('layouts.login_default')
+@extends('layouts.default')
+
+@section('title')
+
+     Welcome to Merocourse 
+
+@stop
+
+@section('header')
+    @include('resources.login_header')
+@stop
 
 @section('content')
 
@@ -41,7 +51,11 @@
                                         <div class ="col-sm-8">
                                           
                                             {{ Form::password('password',['class'=>'form-control']) }}
-                                         
+
+                                                <p>
+                                                {{ $errors->first ('login' , '<span class= errormessage>:message</span>')}}
+                                                </p>
+                
                                          </div>
                                       
 
