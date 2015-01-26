@@ -1,4 +1,4 @@
-@extends('layouts.register_default')
+@extends('layouts.default')
 
 @section('content')
 

@@ -19,7 +19,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                        'gender' => 'required',
                 'date_of_birth' => 'required|date'
     ];
-    
+   
     public $errors;
 
 	/**
@@ -47,5 +47,5 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             return false;
             
     }
-    
+   
 }

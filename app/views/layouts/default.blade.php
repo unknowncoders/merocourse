@@ -7,10 +7,8 @@
   <body>
       
 
-  @include('resources/register_header')
 
-
-
+     
   @yield ('content')
    
       

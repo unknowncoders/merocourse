@@ -43,7 +43,7 @@
                                             {{ Form::password('password',['class'=>'form-control']) }}
                                          
                                          </div>
-
+                                      
 
                                     </div>
                             </div> 
