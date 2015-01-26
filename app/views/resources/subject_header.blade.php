@@ -26,7 +26,7 @@
                              
                                  <li>   <a href ="#" data-toggle="modal"class ="sans">Setting</a>  </li>
                                  
-                                 <li>   <a href ="#" data-toggle="modal"class ="sans">Log Out</a>  </li>
+                                 <li>   <a href ="{{URL::to('logout')}}" data-toggle="modal"class ="sans">Log Out</a>  </li>
                              </ul>
 
                           </li>

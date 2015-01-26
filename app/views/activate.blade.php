@@ -6,24 +6,44 @@
 
 @section('header')
 
+    @include('resources.subject_header')
+
 @stop
 
 @section('content')
 
-<div>
+<div class ="container">
 
-        Please activate your account by confirming your email address.
+   <div class ="modal-dialog">
+         <div class ="form-horizontal">
+               
+              <div class ="modal-content">
+                  
+                      <div class ="modal-header">
+                              <h3>Email Confirmation !!! </h3>
+                        </div>
 
-</div>
+                        <div class = "modal-body">
 
-<div>
+
+                              Please activate your merocourse account by confirming your email address.
+                         
+                            </div>
+
+                          <div class ="modal-footer">
 
         {{ Form::open(array('url'=>'register/resend')) }}
 
-            {{ Form::submit('Resend Confirmation') }}
+            {{ Form::submit('Resend Confirmation',['class' =>'btn btn-primary']) }}
 
         {{ Form::close() }}
 
-</div>
 
+                           </div>
+               </div>
+         </div>
+
+   </div>
+
+</div>
 @stop
