@@ -1,4 +1,12 @@
-@extends('layouts.register_default')
+@extends('layouts.default')
+
+@section('title')
+        Registration
+@stop
+
+@section('header')
+    @include('resources.register_header')
+@stop
 
 @section('content')
 

@@ -1,4 +1,14 @@
-@extends('layouts.login_default')
+@extends('layouts.default')
+
+@section('title')
+
+     Welcome to Merocourse 
+
+@stop
+
+@section('header')
+    @include('resources.login_header')
+@stop
 
 @section('content')
 
