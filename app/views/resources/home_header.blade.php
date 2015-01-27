@@ -17,6 +17,7 @@
 
               <div class ="navbar-collapse collapse">
                      <ul class ="nav navbar-nav navbar-right">
+                            <li><a href = "{{URL::to('logout')}}">Log Out</a></li>
                                    <li class ="dropdown">
                                <a href="#" class ="dropdown-toggle" data-toggle ="dropdown">
                                   <b class ="caret"></b></a>
@@ -25,7 +26,6 @@
                              
                                  <li>   <a href ="#" data-toggle="modal"class ="sans">Setting</a>  </li>
                                  
-                                 <li>   <a href ="#" data-toggle="modal"class ="sans">Log Out</a>  </li>
                              </ul>
 
                           </li>
