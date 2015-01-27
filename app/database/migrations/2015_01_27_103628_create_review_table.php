@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubjectTable extends Migration {
+class CreateReviewTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateSubjectTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('subject', function(Blueprint $table)
+		Schema::create('review', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('subject_name',100);    
-            $table->integer('rate')->default(0);
-            $table->integer('number')->default(0);  
+            $table->string('content');
+            $table->integer('up')->default(0);
+            $table->integer('down')->default(0);
             $table->timestamps();
 		});
 	}
@@ -29,7 +29,7 @@ class CreateSubjectTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('subject');
+		Schema::drop('review');
 	}
 
 }
