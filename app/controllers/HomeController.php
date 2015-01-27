@@ -29,6 +29,7 @@ class HomeController extends BaseController {
           $username = Subject::find($subjectid)->review()->get();
            $review = Subject::find($subjectid)->user()->get();
            $subjectname = Subject::find($subjectid);
+
          
            return View::make('home/review')->with('username',$username)->with('review',$review)->with('subjectname',$subjectname)->with('user',$user);
  
