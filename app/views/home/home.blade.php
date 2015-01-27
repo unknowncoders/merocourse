@@ -15,7 +15,7 @@
 
          <div class ="container">
          <div class ="thumbnail">
-          <h4>Welcome Mahendra </h5>
+          <h4>{{$user->name}} </h4>
         </div>    
          @foreach($faculty as $fac)
              
@@ -32,10 +32,11 @@
                         
              
                          <div class = "col-sm-2">
-                  
+                    
+                         <!-- 
                       <a href="{{URL::to('subject',['facultyid'=>$fac->id, 'semesterid' => $sem->id])}}"  class ="thumbnail">
-                       
-                            {{$sem->photo_id}}
+                       -->
+                            {{$sem->semester_name}}
                        
                     </a> 
                      </div>
@@ -46,10 +47,10 @@
                         @foreach($semester1 as $sem)
                
                        <div class = "col-sm-2">
-                  
+                  <!--
                       <a href="{{URL::to('subject',['facultyid'=>$fac->id, 'semesterid' => $sem->id])}}"  class ="thumbnail">
-                      
-                       {{$sem ->photo_id}}
+                      -->
+                       {{$sem ->semester_name}}
                     </a> 
                      </div>
 
