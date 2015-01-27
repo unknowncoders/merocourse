@@ -13,11 +13,7 @@
 
 Route::group(['before'=>'auth|confirmed'],function(){
 
-          Route::get('/',function(){
-
-              return "Home page";
-
-          });
+          Route::get('/','HomeController@showhome');
 
 });
 

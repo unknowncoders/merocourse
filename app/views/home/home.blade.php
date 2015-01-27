@@ -1,7 +1,16 @@
- @extends('layouts.home_default')
+ @extends('layouts.default')
 
+@section('title')
 
-  @section('home')
+   Merocourse
+@stop
+
+ @section('header') 
+
+  @include('resources/home_header')
+ @stop
+
+  @section('content')
 
 
          <div class ="container">

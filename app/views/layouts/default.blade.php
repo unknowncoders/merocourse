@@ -12,7 +12,7 @@
    @yield('header')
 
 
- @yield ('content')
+    @yield ('content')
    
       
    @include('resources/footer')
