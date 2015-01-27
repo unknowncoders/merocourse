@@ -30,7 +30,7 @@
        @foreach($faculty as $subject)
            
         <div class = "col-sm-2">
-           <a href="{{URL::to('review',['subjectid'=>$subject->id])}}"  class ="thumbnail">
+           <a href="{{URL::to('review',['subjectname'=>$subject->subject_name])}}"  class ="thumbnail">
                        
            {{$subject->subject_name}}
                        

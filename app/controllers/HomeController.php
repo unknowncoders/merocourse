@@ -20,5 +20,11 @@ class HomeController extends BaseController {
             return View::make('home/subject')->with('faculty', $faculty)->with('user',$user);
     
         }
-
+           
+        public function showreview($subjectname)
+        {
+                $subjectid = Subject::where('subject_name', $subjectname)->pluck('id');
+                $user = Auth::user();
+                return View::make('home/review'); 
+        }
 }
