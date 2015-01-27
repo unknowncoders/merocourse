@@ -13,11 +13,14 @@
 
 Route::group(['before'=>'auth|confirmed'],function(){
 
+Route::get('test',function()
+     {
+             return View::make('home/test');
+    });
           Route::get('/','HomeController@showhome');
           Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
           Route::get('review/{subjectname}','HomeController@showreview');
-
-
+          Route::post('newreview','HomeController@newreview');
 
 });
 

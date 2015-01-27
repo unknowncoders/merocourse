@@ -33,4 +33,13 @@ class HomeController extends BaseController {
            return View::make('home/review')->with('username',$username)->with('review',$review)->with('subjectname',$subjectname)->with('user',$user);
  
         }
+        
+        public function newreview()
+    {
+        //    Faculty::create(array(
+          //          'faculty_name' =>Input::get('name')
+          //  ));
+            return Input::get('name');
+                    
+    }
 }
