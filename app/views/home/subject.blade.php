@@ -1,10 +1,27 @@
-@extends('layouts.subject_default')
+@extends('layouts.default')
 
-@section('subject')
+
+@section('title')
+
+   Merocourse | subject
+@stop
+
+ @section('header') 
+
+  @include('resources/subject_header')
+ @stop
+
+
+
+@section('content')
 
   <div class ="container">
-    
-    <div class ="jumbotron">
+ 
+         <div class ="thumbnail">
+          <h3>Welcome {{$user->name}} ! </h3>
+        </div>    
+            
+          <br/><br/> 
          <h3>Subject</h3>
         <hr>
        
@@ -25,7 +42,6 @@
        </div>
    </div>
 
- </div>
  
 
 @stop

@@ -14,6 +14,8 @@
 Route::group(['before'=>'auth|confirmed'],function(){
 
           Route::get('/','HomeController@showhome');
+          Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
+
 
 });
 

@@ -33,9 +33,9 @@
              
                          <div class = "col-sm-2">
                     
-                         <!-- 
-                      <a href="{{URL::to('subject',['facultyid'=>$fac->id, 'semesterid' => $sem->id])}}"  class ="thumbnail">
-                       -->
+                          
+                      <a href="{{URL::to('subject',['facultyid'=>$fac->faculty_name, 'semesterid' => $sem->semester_name])}}"  class ="thumbnail">
+                       
                             {{$sem->semester_name}}
                        
                     </a> 
@@ -47,9 +47,9 @@
                         @foreach($semester1 as $sem)
                
                        <div class = "col-sm-2">
-                  <!--
-                      <a href="{{URL::to('subject',['facultyid'=>$fac->id, 'semesterid' => $sem->id])}}"  class ="thumbnail">
-                      -->
+                  
+                      <a href="{{URL::to('subject',['facultyid'=>$fac->faculty_name, 'semesterid' => $sem->semester_name])}}"  class ="thumbnail">
+                    
                        {{$sem ->semester_name}}
                     </a> 
                      </div>
