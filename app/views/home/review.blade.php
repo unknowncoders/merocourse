@@ -19,7 +19,6 @@
 {{HTML::script('js/jquery-2.1.0.min.js')}}
 {{HTML::script('js/jquery.responsiveTabs.js')}}
 
-<!--onload = "if(location.href.indexOf('reload')==-1)location.replace(location.href+'?reload');" --> 
 
 <div class ="container"> 
  
@@ -27,7 +26,9 @@
           <h3>Welcome {{$user->name}} ! </h3>
         </div>    
             
-          <br/><br/> 
+          <br/>
+          <h3>{{$subjectname->subject_name}} </h3>
+           <hr>
     <div id="horizontalTab">
         <ul>
             <li><a href="#tab-1"><h4>Review</h4></a></li>
@@ -40,11 +41,15 @@
 
                   <div id ="thapa"> 
                     @for($i = 0; $i < sizeof($username); $i++)
-                      {{$username[$i]->name}}
+                     
+                       {{$username[$i]->name}}
                       {{$review[$i]->content}}
                       {{$review[$i]->up}}
                       {{$review[$i]->down}}
-                         
+                    
+                   <button type="button" onclick="dolike({{$review[$i]->id}})">Up</button>
+                      
+                   <button type="button" onclick="dounlike({{$review[$i]->id}})">down</button>
                         <br>
                  @endfor    
                      
@@ -70,32 +75,77 @@
 </div>
 
 <script>
+      
+    function dolike(id)
+        {
+                var host = "{{URL::to('/')}}";
+                var name = 1;
+               $.ajax({
+                    type: "POST",
+                            url: host + '/like/'+id,
+                            data: {name:name},
+                            success:function(msg){
+                                    alert(msg);
+                             
+                       $("#thapa").load(document.URL + ' #thapa');
+                       
+                            }
+               });
+ 
+        }
+
+    function dounlike(id)
+        {
+                var host = "{{URL::to('/')}}";
+                var name = 0;
+               $.ajax({
+                    type: "POST",
+                            url: host + '/like/'+id,
+                            data: {name:name},
+                            success:function(msg){
+                                    alert(msg);
+                             
+                       $("#thapa").load(document.URL + ' #thapa');
+                       
+                            }
+               });
+ 
+        }
+
 
 $(document).ready(function(){
-      
+
+        
+    if(document.URL.indexOf("")==-1)
+    {
+              url = document.URL+ "";
+              location ="";
+              location.reload(true);
+    }     
         $("#tori").click(function(){
             
            // ajax code to refresh the certain section of home page 
               
                
-                //       location.reload(); 
-            $("#thapa").load(document.URL + ' #thapa');
+          $("#thapa").load(document.URL + ' #thapa');
+                  
+
         });
-
-
         $('#rv').on('submit', function(e){
                e.preventDefault();
           
                var host = "{{URL::to('/')}}";
                var name = $('#name').val();
-
                $.ajax({
                     type: "POST",
-                            url: host + '/newreview',
+                            url: host + '/newreview/{{ $subjectname->subject_name}}',
                             data: {name: name},
                             success:function(msg){
                                     $("#rv")[0].reset();
                                     alert(msg);
+                             
+                       $("#thapa").load(document.URL + ' #thapa');
+                       
                             }
                });
  

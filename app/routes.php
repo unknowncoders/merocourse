@@ -20,8 +20,9 @@ Route::get('test',function()
           Route::get('/','HomeController@showhome');
           Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
           Route::get('review/{subjectname}','HomeController@showreview');
-          Route::post('newreview','HomeController@newreview');
-
+          Route::post('newreview/{subjectname}','HomeController@newreview');
+      
+          Route::post('like/{reviewid}','HomeController@like');
 });
 
 Route::group(['before'=>'guest'],function(){

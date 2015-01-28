@@ -35,12 +35,28 @@ class HomeController extends BaseController {
  
         }
         
-        public function newreview()
-    {
-        //    Faculty::create(array(
-          //          'faculty_name' =>Input::get('name')
-          //  ));
-            return Input::get('name');
+        public function newreview($subjectname)
+        {
+               
+        $subjectid = Subject::where('subject_name', $subjectname)->pluck('id');
+        $user = Auth::user();
+
+        $review=  Review::create(array(
+                    'content' =>Input::get('name')
+          ));
+              
+         Sur::create(array(
+                 'subject_id' => $subjectid,
+                 'user_id' => $user->id,
+                 'review_id'=> $review->id 
+         ));
+    
+        return "your review has been successfully posted";
                     
-    }
+        }
+        public function like($reviewid)
+        {
+                return $reviewid;
+                return Input::get('name');
+        }
 }
