@@ -37,10 +37,11 @@ class HomeController extends BaseController {
         
         public function newreview($subjectname)
         {
-               
+                      
         $subjectid = Subject::where('subject_name', $subjectname)->pluck('id');
         $user = Auth::user();
-
+         
+        $getrate = Input::get('rate');
         $review=  Review::create(array(
                     'content' =>Input::get('name')
           ));
@@ -50,6 +51,14 @@ class HomeController extends BaseController {
                  'user_id' => $user->id,
                  'review_id'=> $review->id 
          ));
+
+          
+        $rate = Subject::where('subject_name', $subjectname)->pluck('rate');
+        $number = Subject::where('subject_name', $subjectname)->pluck('number');
+    
+        $newrate = (($rate * $number)+ $getrate)/($number+1);
+          
+          Subject::where('subject_name', $subjectname)->update(array('rate'=>$newrate, 'number' =>( $number+1)));      
     
         return "your review has been successfully posted";
                     

@@ -16,7 +16,7 @@ class CreateSubjectTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('subject_name',100);    
-            $table->integer('rate')->default(0);
+            $table->float('rate')->default(0);
             $table->integer('number')->default(0);  
             $table->timestamps();
 		});

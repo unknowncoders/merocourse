@@ -16,7 +16,6 @@
 {{HTML::script('js/jq.js')}}
 {{HTML::style('css/responsive-tabs.css')}}
 {{HTML::style('css/style.css')}}
-{{HTML::script('js/jquery-2.1.0.min.js')}}
 {{HTML::script('js/jquery.responsiveTabs.js')}}
 
 
@@ -61,7 +60,11 @@
                  {{Form::open(array('method' =>'post' ,  'id' =>'rv'))}} 
                 {{Form::label('name','Text')}}
                 {{Form::text('username',null,array('id'=>'name', 'name'=>'name'))}}
-                {{Form::submit('submit', array('name'=>'submit' , 'id' => 'tori'))}}
+                  <br>
+                 {{Form::label('rate','Rate')}}
+                {{Form::text('rate',null,array('id'=>'rate', 'name'=>'rate'))}}
+                   <br>
+               {{Form::submit('submit', array('name'=>'submit' , 'id' => 'tori'))}}
 
 
             </div>
@@ -136,10 +139,11 @@ $(document).ready(function(){
           
                var host = "{{URL::to('/')}}";
                var name = $('#name').val();
+               var rate = $('#rate').val();
                $.ajax({
                     type: "POST",
                             url: host + '/newreview/{{ $subjectname->subject_name}}',
-                            data: {name: name},
+                            data: {name: name, rate: rate},
                             success:function(msg){
                                     $("#rv")[0].reset();
                                     alert(msg);

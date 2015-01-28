@@ -37,6 +37,4 @@
        </div>
 </div>
     
-    {{HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')}}
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     {{HTML::script('js/bootstrap.min.js')}}
