@@ -17,7 +17,7 @@
 {{HTML::style('css/responsive-tabs.css')}}
 {{HTML::style('css/style.css')}}
 {{HTML::script('js/jquery.responsiveTabs.js')}}
-
+{{HTML::style('css/review.css')}}
 
 <div class ="container"> 
  
@@ -79,15 +79,25 @@
         </div>
         <div id="tab-2">
             <div class ="info">  
-                 {{Form::open(array('method' =>'post' ,  'id' =>'rv'))}} 
-                {{Form::label('name','Text')}}
-                {{Form::text('username',null,array('id'=>'name', 'name'=>'name'))}}
-                  <br>
-                 {{Form::label('rate','Rate')}}
-                {{Form::text('rate',null,array('id'=>'rate', 'name'=>'rate'))}}
-                   <br>
-               {{Form::submit('submit', array('name'=>'submit' , 'id' => 'tori'))}}
-
+            <div class  = "col-sm-2"> 
+             {{Form::open(array('method' =>'post' ,  'id' =>'rv'))}} 
+             <h6>   {{Form::label('name','Your Review')}}</h6></div>
+               <div class ="col-sm-10 thumbnail">
+              <p> {{Form::textarea('username',null,array('id'=>'name', 'name'=>'name', 'style' => 'width:100%; height: 350px','placeholder' =>'You can also use html tags such as <h4>, <br>' ))}}
+                </p>      
+              </div>
+                
+        <h6> <div class ="col-sm-2"  > {{Form::label('rate','Difficulty rating: ')}}</div>
+                 </h6>
+                  <div class ="col-sm-9 ">
+<div class="rating">
+    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+    <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                </div> </div>
+                                {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary'))}}
 
             </div>
         </div>
@@ -100,25 +110,23 @@
 </div>
 
 <script>
-      
-    function dolike(id,name,sid)
-        {
-                var host = "{{URL::to('/')}}";
-               $.ajax({
-                    type: "POST",
-                            url: host + '/like/'+id,
-                            data: {name:name,sid:sid},
-                            success:function(msg){
-                             
-                       $("#thapa").load(document.URL + ' #thapa');
-                       
-                            }
-               });
  
-        }
+
+var userRation;
+
 $(document).ready(function(){
 
-        
+      $(".rating input:radio").attr("checked", false);
+       $('.rating input').click(function () {
+                    $(".rating span").removeClass('checked');
+                         $(this).parent().addClass('checked');
+                     });
+
+       $('input:radio').change(
+                function(){
+                              userRating = this.value;
+                    
+                              });    
     if(document.URL.indexOf("")==-1)
     {
               url = document.URL+ "";
@@ -139,7 +147,7 @@ $(document).ready(function(){
           
                var host = "{{URL::to('/')}}";
                var name = $('#name').val();
-               var rate = $('#rate').val();
+               var rate = userRating;
                $.ajax({
                     type: "POST",
                             url: host + '/newreview/{{ $subjectname->subject_name}}',
@@ -148,6 +156,7 @@ $(document).ready(function(){
                                     $("#rv")[0].reset();
                                     alert(msg);
                              
+                    $(".rating span").removeClass('checked');
                        $("#thapa").load(document.URL + ' #thapa');
                        
                             }
@@ -161,6 +170,21 @@ $(document).ready(function(){
 
 });
 
+    function dolike(id,name,sid)
+        {
+                var host = "{{URL::to('/')}}";
+               $.ajax({
+                    type: "POST",
+                            url: host + '/like/'+id,
+                            data: {name:name,sid:sid},
+                            success:function(msg){
+                             
+                       $("#thapa").load(document.URL + ' #thapa');
+                       
+                            }
+               });
+ 
+        }
 </script>
 
 @stop
