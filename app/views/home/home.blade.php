@@ -14,9 +14,7 @@
 
 
          <div class ="container">
-         <div class ="thumbnail">
-          <h3>Welcome {{$user->name}} ! </h3>
-        </div>    
+          <h3><strong>Welcome {{$user->name}} !</strong> </h3>
          @foreach($faculty as $fac)
              
                  <br><br><br><br>                

@@ -21,13 +21,11 @@
 
 <div class ="container"> 
  
-         <div class ="thumbnail">
-          <h3>Welcome {{$user->name}} ! </h3>
-        </div>    
+           <h3> <strong>Welcome {{$user->name}} !</strong> </h3>
             
-          <br/>
+          <br/ ><br/><br/>
           <h3>{{$subjectname->subject_name}} </h3>
-           <hr>
+       <br/>   <hr><br/>
     <div id="horizontalTab">
         <ul>
             <li><a href="#tab-1"><h4>Review</h4></a></li>
@@ -38,12 +36,12 @@
             <div class ="info">
                   <div id ="thapa"> 
                     @for($i = 0; $i < sizeof($username); $i++)
-                     
-                       {{$username[$i]->name}}
-                      {{$review[$i]->content}}
-                       {{$review[$i]->up}}
-                      {{$review[$i]->down}}
-                        <br> 
+            
+         <div class ="col-sm-2 thumbnail">          
+                   <h4>    {{$username[$i]->name}}</h4>
+         </div>
+                    <div class ="col-sm-10 thumbnail">
+                      {{$review[$i]->content}}</div>
 
                               <?php $j = 0; ?>
 
@@ -54,12 +52,16 @@
                                @if($ar->status == 1) 
 
                                         <?php $j = 1; ?>
+                       {{$review[$i]->up}}
                    <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">AUp</button>
+                      {{$review[$i]->down}}
                    <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
                                         
                                     @elseif($ar->status == 0)
                                        <?php $j = 1; ?> 
+                       {{$review[$i]->up}}
                    <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                      {{$review[$i]->down}}
                    <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">Adown</button>
                                        
                                      @endif
@@ -68,10 +70,12 @@
                                    
                                      @endforeach 
                              @if($j == 0)
+                       {{$review[$i]->up}}
                    <button   id = "up"  type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                      {{$review[$i]->down}}
                    <button id ="down"  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
                                 @endif
-      <br>
+ <br/><br/><hr/><br/><br/>
                  @endfor    
                      
                  </div>
