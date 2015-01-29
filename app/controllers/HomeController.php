@@ -25,13 +25,16 @@ class HomeController extends BaseController {
         {
                 $subjectid = Subject::where('subject_name', $subjectname)->pluck('id');
                 $user = Auth::user();
-     
-          $username = Subject::find($subjectid)->review()->get();
-           $review = Subject::find($subjectid)->user()->get();
-           $subjectname = Subject::find($subjectid);
+              
+           $urs =   Urs::where('subject_id',$subjectid)->where('user_id',$user->id)->get();   
 
-         
-           return View::make('home/review')->with('username',$username)->with('review',$review)->with('subjectname',$subjectname)->with('user',$user);
+
+          $review = Subject::find($subjectid)->review()->get();
+           $username = Subject::find($subjectid)->user()->get();
+           $subjectname = Subject::find($subjectid);
+              
+
+           return View::make('home/review')->with('urs',$urs)->with('username',$username)->with('review',$review)->with('subjectname',$subjectname)->with('user',$user);
  
         }
         
@@ -65,7 +68,55 @@ class HomeController extends BaseController {
         }
         public function like($reviewid)
         {
-                return $reviewid;
-                return Input::get('name');
+                $userid = Auth::user()->id;
+                $getstatus = Input::get('name');
+                 $subjectid = Input::get('sid');
+
+               $status = Urs::where('user_id', $userid)->where('review_id',$reviewid)->pluck('status'); 
+               $up = Review::where('id',$reviewid)->pluck('up');
+               $down = Review::where('id',$reviewid)->pluck('down');
+
+                if($status == NULL)
+                {
+
+                Urs::create(array(
+                     'subject_id' =>$subjectid,   
+                     'review_id' => $reviewid,
+                      'user_id' => $userid,
+                      'status' => $getstatus
+              ));
+
+                if($getstatus == 1)
+                      Review::where('id',$reviewid)->update(array('up' => ($up + 1)));
+                 else
+                       Review::where('id', $reviewid)->update(array('down' => ($down +1))); 
+             
+                }
+                else if($status != $getstatus)
+                {
+                     Urs::where('user_id',$userid)->where('review_id',$reviewid)->update(array('status' => $getstatus));            
+      
+                         if($getstatus == 1)
+                         {
+                             Review::where('id',$reviewid)->update(array('up' => ($up + 1), 'down' =>($down -1)));
+                         }
+                         else
+                         {
+                                 Review::where('id', $reviewid)->update(array('down' => ($down +1),'up' =>($up -1))); 
+                         }   
+                } 
+                   else
+                   {
+                       Urs::where('user_id',$userid)->where('review_id',$reviewid)->delete();
+                       
+                       
+                if($getstatus == 1)
+                      Review::where('id',$reviewid)->update(array('up' => ($up - 1)));
+                 else
+                       Review::where('id', $reviewid)->update(array('down' => ($down -1))); 
+             
+                
+
+                   }
         }
 }

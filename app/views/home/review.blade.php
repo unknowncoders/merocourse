@@ -34,22 +34,44 @@
             <li><a href="#tab-2"><h4>New Review</h4></a></li>
             <li><a href="#tab-3"><h4>Resources</h4></a></li>
         </ul>
-
-        <div id="tab-1">
+            <div id="tab-1">
             <div class ="info">
-
                   <div id ="thapa"> 
                     @for($i = 0; $i < sizeof($username); $i++)
                      
                        {{$username[$i]->name}}
                       {{$review[$i]->content}}
-                      {{$review[$i]->up}}
+                       {{$review[$i]->up}}
                       {{$review[$i]->down}}
-                    
-                   <button type="button" onclick="dolike({{$review[$i]->id}})">Up</button>
-                      
-                   <button type="button" onclick="dounlike({{$review[$i]->id}})">down</button>
-                        <br>
+                        <br> 
+
+                              <?php $j = 0; ?>
+
+                                  @foreach($urs as $ar)
+                            
+                               @if($ar->review_id == $review[$i]->id)
+                                   
+                               @if($ar->status == 1) 
+
+                                        <?php $j = 1; ?>
+                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">AUp</button>
+                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
+                                        
+                                    @elseif($ar->status == 0)
+                                       <?php $j = 1; ?> 
+                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">Adown</button>
+                                       
+                                     @endif
+                                   
+                                     @endif
+                                   
+                                     @endforeach 
+                             @if($j == 0)
+                   <button   id = "up"  type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                   <button id ="down"  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
+                                @endif
+      <br>
                  @endfor    
                      
                  </div>
@@ -79,16 +101,14 @@
 
 <script>
       
-    function dolike(id)
+    function dolike(id,name,sid)
         {
                 var host = "{{URL::to('/')}}";
-                var name = 1;
                $.ajax({
                     type: "POST",
                             url: host + '/like/'+id,
-                            data: {name:name},
+                            data: {name:name,sid:sid},
                             success:function(msg){
-                                    alert(msg);
                              
                        $("#thapa").load(document.URL + ' #thapa');
                        
@@ -96,26 +116,6 @@
                });
  
         }
-
-    function dounlike(id)
-        {
-                var host = "{{URL::to('/')}}";
-                var name = 0;
-               $.ajax({
-                    type: "POST",
-                            url: host + '/like/'+id,
-                            data: {name:name},
-                            success:function(msg){
-                                    alert(msg);
-                             
-                       $("#thapa").load(document.URL + ' #thapa');
-                       
-                            }
-               });
- 
-        }
-
-
 $(document).ready(function(){
 
         

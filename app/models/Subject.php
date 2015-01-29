@@ -7,12 +7,12 @@ class Subject extends Eloquent
 
    public function user()
     {
-          return $this->belongsToMany('Review','sur')->withPivot('review_id');
+          return $this->belongsToMany('User','sur')->withPivot('review_id');
     }
 
    public function review()
    {  
-           return $this->belongsToMany('User','sur')->withPivot('user_id');
+           return $this->belongsToMany('Review','sur')->withPivot('user_id');
    }
 
 
