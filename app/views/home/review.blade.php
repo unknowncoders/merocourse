@@ -23,10 +23,10 @@
  
            <h3> <strong>Welcome {{$user->name}} !</strong> </h3>
             
-          <br/ ><br/><br/>
+          <br/ ><br/><hr><br/>
           <h3>{{$subjectname->subject_name}} </h3>
-       <br/>   <hr><br/>
-    <div id="horizontalTab">
+<br><br>    
+<div id="horizontalTab">
         <ul>
             <li><a href="#tab-1"><h4>Review</h4></a></li>
             <li><a href="#tab-2"><h4>New Review</h4></a></li>
@@ -35,16 +35,15 @@
             <div id="tab-1">
             <div class ="info">
                   <div id ="thapa"> 
-                    @for($i = 0; $i < sizeof($username); $i++)
-            
-         <div class ="col-sm-2 thumbnail">          
-                   <h4>    {{$username[$i]->name}}</h4>
-         </div>
-                    <div class ="col-sm-10 thumbnail">
-                      {{$review[$i]->content}}</div>
-
-                              <?php $j = 0; ?>
-
+                      @for($i = 0; $i< sizeof($username); $i++) 
+         <div class ="col-sm-13 thumbnail">          
+                  <div class ="col-sm-3 ">
+                     <h4> <i class="fa fa-user fa-2x"></i> {{  $username[$i]->name}}</h4>
+                     </div>
+                     <div class ="col-sm-9 ">
+                           {{$review[$i]->content}}
+                      </div>         
+                     <?php $j = 0; ?>
                                   @foreach($urs as $ar)
                             
                                @if($ar->review_id == $review[$i]->id)
@@ -52,30 +51,37 @@
                                @if($ar->status == 1) 
 
                                         <?php $j = 1; ?>
+                     <div class ="col-sm-12 " style ="text-align:right">
                        {{$review[$i]->up}}
-                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">AUp</button>
+                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})"><i class="fa fa-thumbs-up"></i></button>
                       {{$review[$i]->down}}
-                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
-                                        
+                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})"><i class="fa fa-thumbs-o-down"></i></button>
+                     </div>                   
                                     @elseif($ar->status == 0)
                                        <?php $j = 1; ?> 
+                     <div class ="col-sm-12 " style ="text-align:right">
                        {{$review[$i]->up}}
-                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                   <button   type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})"><i class="fa fa-thumbs-o-up"></i></button>
                       {{$review[$i]->down}}
-                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">Adown</button>
-                                       
+                   <button  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})"><i class="fa fa-thumbs-down"></i></button>
+                           </div>            
                                      @endif
                                    
                                      @endif
                                    
                                      @endforeach 
                              @if($j == 0)
-                       {{$review[$i]->up}}
-                   <button   id = "up"  type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})">Up</button>
+                     <div class ="col-sm-12 " style ="text-align:right">
+                            {{$review[$i]->up}}
+                   <button   id = "up"  type="button" onclick="dolike({{$review[$i]->id}},1,{{$subjectname->id}})"><i class="fa fa-thumbs-o-up"></i></button>
                       {{$review[$i]->down}}
-                   <button id ="down"  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})">down</button>
-                                @endif
- <br/><br/><hr/><br/><br/>
+                   <button id ="down"  type="button" onclick="dolike({{$review[$i]->id}},0,{{$subjectname->id}})"><i class="fa fa-thumbs-o-down"></i></button>
+                        </div>
+                    @endif    
+                   
+                      </div>
+
+ <br/><br/><hr><br/><br/>
                  @endfor    
                      
                  </div>
@@ -85,28 +91,44 @@
             <div class ="info">  
             <div class  = "col-sm-2"> 
              {{Form::open(array('method' =>'post' ,  'id' =>'rv'))}} 
-             <h6>   {{Form::label('name','Your Review')}}</h6></div>
-               <div class ="col-sm-10 thumbnail">
+             <h5>   {{Form::label('name','Your Review')}}</h5></div>
+               <div class ="col-sm-10 ">
               <p> {{Form::textarea('username',null,array('id'=>'name', 'name'=>'name', 'style' => 'width:100%; height: 350px','placeholder' =>'You can also use html tags such as <h4>, <br>' ))}}
                 </p>      
-              </div>
+         <hr>     </div>
                 
-        <h6> <div class ="col-sm-2"  > {{Form::label('rate','Difficulty rating: ')}}</div>
-                 </h6>
+        <h5> <div class ="col-sm-2"  > {{Form::label('rate','Difficulty rating: ')}}</div>
+                 </h5>
                   <div class ="col-sm-9 ">
-<div class="rating">
-    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
-    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-    <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
-                </div> </div>
-                                {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary'))}}
+
+          <div  class="score ">
+  
+  <input class ="mahen" type="radio" id="score-5" name="score" value="5"/>
+  <label title="5 stars" for="score-5">5 stars</label>
+  
+  <input class ="mahen" type="radio" id="score-4" name="score" value="4"/>
+  <label title="4 stars" for="score-4">4 stars</label>
+  
+  <input class ="mahen" type="radio" id="score-3" name="score" value="3"/>
+  <label title="3 stars" for="score-3">3 stars</label>
+  
+  <input class ="mahen" type="radio" id="score-2" name="score" value="2"/>
+  <label title="2 stars" for="score-2">2 stars</label>
+  
+  <input class ="mahen"  type="radio" id="score-1" name="score" value="1"/>
+  <label title="1 stars" for="score-1">1 stars</label>
+  
+</div>
+                 </div>
+                     {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary'))}}
 
             </div>
         </div>
         <div id="tab-3">
-            <div class ="info">  Resources</div>
+            <div class ="info" > 
+                   <p>Resources</p>           
+    
+              </div>
         </div>
     </div>
 
@@ -116,9 +138,11 @@
 <script>
  
 
-var userRation;
+var userRating;
 
 $(document).ready(function(){
+      
+
 
       $(".rating input:radio").attr("checked", false);
        $('.rating input').click(function () {
@@ -129,7 +153,6 @@ $(document).ready(function(){
        $('input:radio').change(
                 function(){
                               userRating = this.value;
-                    
                               });    
     if(document.URL.indexOf("")==-1)
     {
@@ -152,6 +175,13 @@ $(document).ready(function(){
                var host = "{{URL::to('/')}}";
                var name = $('#name').val();
                var rate = userRating;
+                 
+               if(name == null || name == "" || rate == null || rate == " ")
+               {
+                         alert("Some field is missing");
+               }
+               else
+               {
                $.ajax({
                     type: "POST",
                             url: host + '/newreview/{{ $subjectname->subject_name}}',
@@ -165,8 +195,10 @@ $(document).ready(function(){
                        
                             }
                });
- 
-        }); 
+              
+              } 
+     
+                }); 
 
             $('#horizontalTab').responsiveTabs({
           });
