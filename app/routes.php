@@ -11,7 +11,20 @@
 |
 */
 
+/*Route::group(['before'=>'auth|confirmed'],function(){
 
+Route::get('test',function()
+     {
+             return View::make('home/test');
+    });
+          Route::get('/','HomeController@showhome');
+          Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
+          Route::get('review/{subjectname}','HomeController@showreview');
+          Route::post('newreview/{subjectname}','HomeController@newreview');
+      
+          Route::post('like/{reviewid}','HomeController@like');
+});
+ */
 Route::group(['before'=>'guest'],function(){
 
             Route::get('login',[

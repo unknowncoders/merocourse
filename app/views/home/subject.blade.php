@@ -17,13 +17,11 @@
 
   <div class ="container">
  
-         <div class ="thumbnail">
-          <h3>Welcome {{$user->name}} ! </h3>
-        </div>    
+          <h3><strong>Welcome {{$user->name}} !</strong> </h3>
             
-          <br/><br/> 
+          <br/><br/></br> 
          <h3>Subject</h3>
-        <hr>
+     <br>   <hr></br>
        
        <div class ="row">     
           
