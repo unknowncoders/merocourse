@@ -24,7 +24,7 @@ class SessionController extends \BaseController {
 
             if(Auth::attempt(Input::only('email','password'))){
                 
-                return Redirect::to('/');
+                return Redirect::intended('/');
 
             }
             
@@ -47,7 +47,7 @@ class SessionController extends \BaseController {
 	{
             Auth::logout();
 
-            return Redirect::to('login');
+            return Redirect::to('login')->with('flash_message','You have been logged out.');
 	}
 
 }

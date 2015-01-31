@@ -5,6 +5,12 @@ class UsersController extends \BaseController {
         protected $user;
 
         public function __construct(User $user){
+
+            $this->beforeFilter('guest',['only'=>['create','store']]);
+            $this->beforeFilter('auth',['except'=>['create','store']]);
+            $this->beforeFilter('guest',['only'=>['create','store']]);
+
+
             $this->user = $user;
         }
 
@@ -57,7 +63,7 @@ class UsersController extends \BaseController {
             $confirmation_code = str_random(30);
             $this->user->confirmation_code = $confirmation_code;
 
-            //Perhaps, wait for some time before sending. 
+            //Perhaps, wait for some time before sending?
 
             Mail::send('emails.confirm',array('confirmation_code'=>$confirmation_code),function($message){
                 $message->to($this->user->email,$this->user->name)->subject('Activate your account.');
@@ -123,14 +129,14 @@ class UsersController extends \BaseController {
     {
             if(! $confirmation_code)
             {
-                return Redirect::route('session.create');
+                return Redirect::to('login')->with('flash_message','Error encountered during activation. Try again');
             }
 
             $user = User::whereConfirmationCode($confirmation_code)->first();
 
             if( ! $user)
             {
-                return Redirect::route('session.create');
+                return Redirect::to('login')->with('flash_message','Error encountered during activation. Try again');
             }
 
             $user->confirmed = 1;
@@ -138,7 +144,7 @@ class UsersController extends \BaseController {
             $user->save();
 
 
-            return Redirect::route('session.create')->with('flash_message','Your account has been activated!');
+            return Redirect::to('login')->with('flash_message','Your account has been activated!');
     }
 
     public function getResend()

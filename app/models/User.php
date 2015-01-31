@@ -47,5 +47,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             return false;
             
     }
+
+    public function admin(){
+            return $this->hasOne('Admin');
+    }
    
 }

@@ -58,6 +58,17 @@ Route::filter('confirmed', function()
 
 });
 
+Route::filter('admin', function()
+{
+    if( Auth::user()->admin==null)
+    {
+            return Redirect::to('/');
+    }
+
+});
+
+
+
 
 
 Route::filter('auth.basic', function()

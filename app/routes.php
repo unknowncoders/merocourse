@@ -11,15 +11,6 @@
 |
 */
 
-Route::group(['before'=>'auth|confirmed'],function(){
-
-          Route::get('/','HomeController@showhome');
-          Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
-          Route::get('review/{subjectname}','HomeController@showreview');
-
-
-
-});
 
 Route::group(['before'=>'guest'],function(){
 
@@ -27,12 +18,19 @@ Route::group(['before'=>'guest'],function(){
                     'uses'=>'SessionController@create',
                     'as'=>'session.create'
             ]);
+
+             Route::post('login',[
+                    'uses'=>'SessionController@store',
+                    'as'=>'session.store'
+            ]);
+
             
             Route::get('register',[
                     'uses'=>'UsersController@create',
                     'as'=>'users.create'
             ]);
 
+            Route::resource('users','UsersController',)
 });
 
 Route::group(['before'=>'auth'],function(){
@@ -52,11 +50,28 @@ Route::group(['before'=>'auth'],function(){
             
 });
 
+Route::group(['before'=>'auth|confirmed'],function(){
+
+          Route::get('/','HomeController@showhome');
+          Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
+          Route::get('review/{subjectname}','HomeController@showreview');
+
+
+          Route::resource('users','UsersController');
+
+});
+
+Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){
+
+        
+    Route::resource('users','UsersController');
+
+});
 
 Route::get('register/activate/{confirmationCode}',[
         'uses' => 'UsersController@confirm',
         'as' => 'users.confirm'
 ]);
 
-Route::resource('users','UsersController');
-Route::resource('session','SessionController',['only'=>['create','store','destroy']]);
+
+
