@@ -25,6 +25,11 @@ Route::get('test',function()
           Route::post('like/{reviewid}','HomeController@like');
 });
  */
+
+Route::model('users','User');
+
+Route::pattern('users','[0-9]+');
+
 Route::group(['before'=>'guest'],function(){
 
             Route::get('login',[
@@ -43,7 +48,8 @@ Route::group(['before'=>'guest'],function(){
                     'as'=>'users.create'
             ]);
 
-            Route::resource('users','UsersController',)
+            Route::resource('users','UsersController',['only'=>['create','store']]);
+
 });
 
 Route::group(['before'=>'auth'],function(){
@@ -66,18 +72,17 @@ Route::group(['before'=>'auth'],function(){
 Route::group(['before'=>'auth|confirmed'],function(){
 
           Route::get('/','HomeController@showhome');
-          Route::get('subject/{facultyname}/{semestername}','HomeController@showsubject');
-          Route::get('review/{subjectname}','HomeController@showreview');
-
-
-          Route::resource('users','UsersController');
+          Route::resource('users','UsersController',['except'=>['create','store']]);
 
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){
 
-        
-    Route::resource('users','UsersController');
+          Route::resource('users','AdminUsersController');
+
+          Route::post('users/{users}/toggleAdmin','AdminUsersController@toggleAdmin');
+
+          Route::get('/',function(){ return View::make('admin.dashboard'); });
 
 });
 

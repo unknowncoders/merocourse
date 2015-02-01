@@ -60,7 +60,7 @@ Route::filter('confirmed', function()
 
 Route::filter('admin', function()
 {
-    if( Auth::user()->admin==null)
+    if(! Auth::user()->isAdmin())
     {
             return Redirect::to('/');
     }

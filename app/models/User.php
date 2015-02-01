@@ -51,5 +51,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function admin(){
             return $this->hasOne('Admin');
     }
-   
+
+    public function isAdmin(){
+
+            if($this->admin == null){return false;}
+
+            return true;
+    }
+
+    public function isCurrentUser(){
+
+            if($this->id == Auth::user()->id){return true;}
+            
+            return false;
+    } 
 }
