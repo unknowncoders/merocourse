@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateAdminsTable extends Migration {
+class CreateTermsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class CreateAdminsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('admins', function(Blueprint $table)
+		Schema::create('terms', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('user_id')->unique();
+            $table->string('name',50);
+            $table->integer('duration');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +29,7 @@ class CreateAdminsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('admins');
+		Schema::drop('terms');
 	}
 
 }

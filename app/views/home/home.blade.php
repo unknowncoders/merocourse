@@ -34,7 +34,7 @@
                           
                       <a href="{{URL::to('subject',['facultyid'=>$fac->faculty_name, 'semesterid' => $sem->semester_name])}}"  class ="thumbnail">
                        
-                            {{$sem->semester_name}}
+                            {{ $sem->semester_name }}
                        
                     </a> 
                      </div>

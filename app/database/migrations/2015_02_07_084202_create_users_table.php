@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration {
             $table->date('date_of_birth');
             $table->date('last_active');
             $table->char('confirmation_code',30);
-            $table->boolean('confirmed');
+            $table->boolean('confirmed')->default(false);
             $table->string('remember_token',255)->nullable();
 			$table->timestamps();
 		});
@@ -40,3 +40,4 @@ class CreateUsersTable extends Migration {
 	}
 
 }
+
