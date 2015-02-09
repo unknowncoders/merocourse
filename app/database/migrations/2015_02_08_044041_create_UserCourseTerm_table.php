@@ -20,7 +20,7 @@ class CreateUserCourseTermTable extends Migration {
 			$table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('courseterm_id')->references('id')->on('CourseTerm')->onDelete('cascade');
+            $table->foreign('courseterm_id')->references('id')->on('CourseTerms')->onDelete('cascade');
 		});
 	}
 
