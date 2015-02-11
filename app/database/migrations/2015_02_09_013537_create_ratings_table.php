@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDifficultyRatingsTable extends Migration {
+class CreateRatingsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -27,10 +27,13 @@ class CreateDifficultyRatingsTable extends Migration {
         Schema::create('interestRatings', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('user_id');
-            $table->integer('subject_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('subject_id')->unsigned();
             $table->integer('rating');
 			$table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
 		});
 
 	}
@@ -48,3 +51,5 @@ class CreateDifficultyRatingsTable extends Migration {
 	}
 
 }
+
+

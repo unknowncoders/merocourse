@@ -71,8 +71,8 @@ Route::group(['before'=>'auth'],function(){
 
 Route::group(['before'=>'auth|confirmed'],function(){
 
-          Route::get('/','HomeController@showhome');
-          Route::resource('users','UsersController',['except'=>['create','store']]);
+          Route::get('/','PagesController@home');
+          Route::resource('users','UsersController',['except'=>['create','store','destroy']]);
 
 });
 

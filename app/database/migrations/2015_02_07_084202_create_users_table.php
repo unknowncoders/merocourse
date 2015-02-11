@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration {
             $table->char('gender',1);
             $table->date('date_of_birth');
             $table->date('last_active');
+            $table->integer('contribution_points')->unsigned()->default(0);
+            $table->string('about_me')->default('Nothing yet');
             $table->char('confirmation_code',30);
             $table->boolean('confirmed')->default(false);
             $table->string('remember_token',255)->nullable();

@@ -6,5 +6,13 @@ class Course extends \Eloquent {
 
     protected $table = 'courses';
 
+    public function terms(){
+        return $this->belongsToMany('Term','CourseTerms');
+    }
+
+
+    public function users(){
+        return $this->belongsToMany('User','UserCourse');
+    }
    
 }

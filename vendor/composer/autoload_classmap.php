@@ -37,6 +37,7 @@ return array(
     'CreateCourseTermsTable' => $baseDir . '/app/database/migrations/2015_02_07_084341_create_CourseTerms_table.php',
     'CreateCoursesTable' => $baseDir . '/app/database/migrations/2015_02_07_084314_create_courses_table.php',
     'CreateDifficultyRatingsTable' => $baseDir . '/app/database/migrations/2015_02_07_084456_create_difficultyRatings_table.php',
+    'CreateRatingsTable' => $baseDir . '/app/database/migrations/2015_02_09_013537_create_ratings_table.php',
     'CreateResourcesTable' => $baseDir . '/app/database/migrations/2015_02_09_011334_create_resources_table.php',
     'CreateReviewsTable' => $baseDir . '/app/database/migrations/2015_02_07_084430_create_reviews_table.php',
     'CreateSubjectsTable' => $baseDir . '/app/database/migrations/2015_02_07_084354_create_subjects_table.php',

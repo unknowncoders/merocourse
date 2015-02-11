@@ -6,10 +6,15 @@ class UsersController extends \BaseController {
 
         public function __construct(User $user){
 
+        /*
+         * Tried this to avoid having to partition in the routes file. 
+         * But, it didn't work out. 
+         * Retained for future use (?)
+         
             $this->beforeFilter('guest',['only'=>['create','store']]);
             $this->beforeFilter('auth',['except'=>['create','store']]);
             $this->beforeFilter('guest',['only'=>['create','store']]);
-
+        */
 
             $this->user = $user;
         }
@@ -84,9 +89,13 @@ class UsersController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(User $user)
 	{
-		//
+            // Calculate age of user
+            $user['age'] = $user->getAge();
+
+
+            return $user;
 	}
 
 	/**
@@ -109,18 +118,6 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /users/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
 	{
 		//
 	}

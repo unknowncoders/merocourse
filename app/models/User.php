@@ -36,6 +36,33 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+
+    /**
+     * Relationships
+     *
+     */
+
+    public function admin(){
+            return $this->hasOne('Admin');
+    }
+
+    public function reviews(){
+            return $this->hasMany('Review','user_id');
+    }
+
+    public function courses(){
+            return $this->belongsToMany('Course','UserCourse');
+    }
+
+    public function courseterms(){
+            return $this->belongsToMany('CourseTerm','CourseTermSubjects');
+    }
+
+    /**
+     * Other functions
+     *
+     */
+
     public function isValid(){
         
             $validation = Validator::make($this->attributes,static::$rules);
@@ -48,9 +75,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             
     }
 
-    public function admin(){
-            return $this->hasOne('Admin');
-    }
 
     public function isAdmin(){
 
@@ -65,4 +89,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             
             return false;
     } 
+
+    public function getAge(){
+                $from = new DateTime($this->date_of_birth);
+                $to = new DateTime('today');
+                return $from->diff($to)->y;
+    }
 }
