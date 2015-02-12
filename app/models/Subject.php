@@ -11,7 +11,7 @@ class Subject extends Eloquent
           return $this->belongsToMany('CourseTerm','CourseTermSubjects');
     }
 
-   public function review()
+   public function reviews()
    {  
            return $this->hasMany('Review','subject_id');
    }

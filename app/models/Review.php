@@ -7,15 +7,15 @@ class Review extends Eloquent
 
   protected $table = 'reviews';
 
-  public user(){
+  public function user(){
         return $this->belongsTo('User','user_id');
   }
 
-  public subject(){
+  public function subject(){
        return $this->belongsTo('Subject','subject_id');
   }
 
-  public votes(){
+  public function votes(){
         return $this->hasMany('Vote','review_id');
   }
 

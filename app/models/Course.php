@@ -14,5 +14,18 @@ class Course extends \Eloquent {
     public function users(){
         return $this->belongsToMany('User','UserCourse');
     }
+
+    public function durationToStr(){
+        $str=" ";
+
+        $month = $this->duration % 12;
+        $year = $this->duration / 12;
+
+        if($year !=0){ $str = $year." Years "; }
+        if($month !=0) $str = $month." Months ";
+
+        return $str;
+
+    }
    
 }

@@ -5,12 +5,12 @@ class InterestRating extends \Eloquent {
 
     protected $table = 'interestRatings';
 
-    public user(){
+    public function user(){
         return $this->belongsTo('User','user_id');
     }
     
 
-    public subject(){
+    public function subject(){
         return $this->belongsTo('Subject','subject_id');
     }
 

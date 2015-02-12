@@ -27,8 +27,12 @@ Route::get('test',function()
  */
 
 Route::model('users','User');
+Route::model('courses','Course');
+Route::model('subjects','Subject');
 
 Route::pattern('users','[0-9]+');
+Route::pattern('courses','[0-9]+');
+Route::pattern('subjects','[0-9]+');
 
 Route::group(['before'=>'guest'],function(){
 
@@ -66,7 +70,9 @@ Route::group(['before'=>'auth'],function(){
             Route::post('register/resend',[
                     'uses' => 'UsersController@postResend',
             ]);
-            
+
+            Route::resource('courses','CourseController',['only'=>['index','show']]);
+            Route::resource('subjects','SubjectController',['only'=>['index','show']]); 
 });
 
 Route::group(['before'=>'auth|confirmed'],function(){
