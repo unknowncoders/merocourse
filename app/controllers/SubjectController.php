@@ -32,10 +32,9 @@ class SubjectController extends \BaseController {
 	{
             $reviews = $subject->reviews()->get();
 
-            $subject['drCnt'] = $subject->difficultyRatings()->count();
-            $subject['irCnt'] = $subject->interestRatings()->count();
+            $auth_user = Auth::user();
 
-            return View::make('subjects.show',compact(['subject','reviews']));
+            return View::make('subjects.show',compact(['subject','reviews','auth_user']));
 	}
 
 }

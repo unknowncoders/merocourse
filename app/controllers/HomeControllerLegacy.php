@@ -29,7 +29,7 @@ class HomeController extends BaseController {
            $urs =   Urs::where('subject_id',$subjectid)->where('user_id',$user->id)->get();   
 
 
-          $review = Subject::find($subjectid)->review()->get();
+           $review = Subject::find($subjectid)->review()->get();
            $username = Subject::find($subjectid)->user()->get();
            $subjectname = Subject::find($subjectid);
               

@@ -93,10 +93,11 @@ class UsersController extends \BaseController {
 	{
             // Calculate age of user
             $user['age'] = $user->getAge();
-
+             
+            $auth_user = Auth::user();
             $courses = $user->courses()->orderBy('name','ASC')->get();
 
-            return View::make('users.show',compact(['user','courses']));
+            return View::make('users.show',compact(['user','courses','auth_user']));
 
 	}
 

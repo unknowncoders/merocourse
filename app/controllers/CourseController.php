@@ -34,14 +34,17 @@ class CourseController extends \BaseController {
             $course['period'] = $course->durationToStr();
             
             $terms = $course->terms()->get();
-
-            foreach($terms as $term){
+            
+            $auth_user = Auth::user();
+            
+                foreach($terms as $term){
+                      
                 $courseterm = CourseTerm::where('course_id','=',$course->id)->where('term_id','=',$term->id)->first();
 
                 $term['subjects'] = $courseterm->subjects()->get();
             }
 
-            return View::make('courses.show',compact(['course','terms']));
+            return View::make('courses.show',compact(['course','terms','auth_user']));
 	}
 
 }

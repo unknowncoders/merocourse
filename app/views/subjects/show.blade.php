@@ -10,8 +10,9 @@
 
 @section('content')
 
-<div> Difficulty Rating: {{ $subject->difficulty_rating }} (Rated by {{ $subject['drCnt'] }} users)  </div>
-<div> Interest Rating: {{ $subject->interest_rating }} (Rated by {{ $subject['irCnt'] }} users)  </div>
+<div> Subject name: {{$subject->name}}</div>
+<div> Difficulty Rating: {{ $subject->difficulty_rating }} </div>
+<div> Interest Rating: {{ $subject->interest_rating }} </div>
 <div> Full Marks: {{ $subject->fullMarks }} </div>
 
 <div> 
