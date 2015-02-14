@@ -1,4 +1,4 @@
-     .mahen {
+.mahen {
   position:absolute;
   top: -2em;
   clip:rect(0,0,0,0);
@@ -38,9 +38,74 @@
 .score label:hover ~ label:before,
 .score input:checked ~ label:before {
    content: "★";
-   color: black;
+   color: red;
 }
 .score label:active {
   position: relative;
   top: 1px;
+}
+
+.score1 {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+  border: 0;
+  font-size: 0;
+}
+.score1 legend {
+  overflow: hidden;
+  height: 0;
+}
+.score1 label {
+  font-size: 32px; font-size: 2rem;
+  line-height: 32px; line-height: 2rem;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  width: 1.2em;
+  height: 1em;
+  overflow: hidden;
+  text-indent: 100%;
+}
+.score1 label:before {
+   content: "☆";
+   position: absolute;
+   top: 0; left: 0; right: 0; bottom: 0;
+   text-indent: 0;
+   line-height: 1em;
+   color: #aaa;
+}
+.score1 label:hover:before,
+.score1 label:hover ~ label:before,
+.score1 input:checked ~ label:before {
+   content: "★";
+   color: blue;
+}
+.score1 label:active {
+  position: relative;
+  top: 1px;
+}
+
+.stardiff
+{
+
+color:red;
+float:left;
+font-size:2rem;
+line-height: 1em;
+
+}
+.starint
+{
+color:blue;
+float:left;
+font-size:2rem;
+line-height: 1em;
+}
+.starwhite
+{
+color: #aaa;
+float:left; 
+font-size: 2rem; 
+line-height: 1em;
 }

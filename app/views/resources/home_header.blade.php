@@ -12,24 +12,24 @@
 
                    </button>
 
-                   <a class ="navbar-brand sans" href ="#">MERO COURSE</a>
+              <h4>     <a class ="navbar-brand sans" href ="#">MERO COURSE</a></h4>
               </div>
-
+         
               <div class ="navbar-collapse collapse">
                      <ul class ="nav navbar-nav navbar-right">
                         
-                            <li><a href = "{{URL::to('/')}}">{{ $auth_user->name}}</a></li>
+                            <li><a href = "{{URL::to('/')}}"><h5>{{ $auth_user->name}}</h5></a></li>
                             
                                <li class ="dropdown">
                                <a href="#" class ="dropdown-toggle" data-toggle ="dropdown">
-                                  <b class ="caret"></b></a>
+                                  <h5><b class ="caret"></b></h5></a>
                                </a>
                           
                            
                             <ul class ="dropdown-menu">
                              
-                                 <li>   <a href ="#" data-toggle="modal"class ="sans">Setting</a>  </li>
-                                 <li><a href = "{{URL::to('logout')}}"data-toggle="modal"class ="sans">Log Out</a></li>
+                                 <li>   <a href ="#" data-toggle="modal"class ="sans"><h5>Setting</h5></a>  </li>
+                                 <li><a href = "{{URL::to('logout')}}"data-toggle="modal"class ="sans"><h5>Log Out</h5></a></li>
                              
                               </ul>
 

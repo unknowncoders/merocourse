@@ -37,4 +37,5 @@
        </div>
 </div>
     
+    {{HTML::script(' https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
