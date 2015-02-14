@@ -76,17 +76,37 @@
 
             <div id="tab-1">
             <div class ="info"> 
-                @foreach($reviews as $review)
-                
-                <div> 
-                  <li> {{ link_to("/users/{$review->user->id}",$review->user->name) }} </li>
+               
+            <div id = "thapa"> 
+              
+            <div class="col-sm-13 ">
+           
+                     @foreach($reviews as $review)
+
+                <div class ="col-sm-3 "> 
+                  <h4><i class="fa fa-user fa-2x"></i>{{ link_to("/users/{$review->user->id}",$review->user->name) }}</h4> 
                 </div>
 
-                 <div>
-                     {{ $review->content }}
+                 <div class = "col-sm-9  " >
+                    <br>
+                       {{ $review->content }}
+                    <br>
+                </div>
+
+     
+                <div class ="col-sm-13 " style ="text-align:right">
+                     {{ $review->upvote }}
+                     {{ $review->downvote }}
+                <hr>
+
+               </div>
+                
+                @endforeach
+                
                </div>
 
-                  @endforeach
+               </div>
+           
              </div> 
              </div>
 
@@ -97,7 +117,7 @@
              <div class ="info">
 
                           <div class  = "col-sm-3"> 
-                           {{Form::open(array('method' =>'post' ,  'id' =>'rv'))}} 
+                           {{Form::open(array('method' =>'post' ,  'id' =>'review'))}} 
                           <h5>   {{Form::label('name','Your Review')}}</h5>
                            </div>
               
@@ -162,7 +182,8 @@
                    <br/>
                    <div class ="col-sm-13">
                      {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary rightshift'))}}
-                  </div>
+                  <br/><br/>
+                   </div>
 
              </div>
            </div>
@@ -178,6 +199,7 @@
 </div>
 </div>
 </div>
+
 {{HTML::script('js/jq.js')}}
 {{HTML::script('js/jquery.responsiveTabs.js')}}
 
@@ -198,7 +220,6 @@ $(document).ready(function()
        $('#difficulty input:radio').change(
                 function(){
                             Difficulty_rating  = this.value;
-                       alert(Difficulty_rating);
                 });    
 
       $("#interest input:radio").attr("checked", false);
@@ -210,8 +231,52 @@ $(document).ready(function()
        $('#interest input:radio').change(
                 function(){
                         Interest_rating = this.value;
-                       alert(Interest_rating);
-                              });    
+                
+                });    
+
+         if(document.URL.indexOf("")==-1)
+               {
+              url = document.URL+ "";
+              location ="";
+              location.reload(true);
+                }     
+     
+         // ajax code to refresh the certain section of home page 
+        $("#tori").click(function(){
+          $("#thapa").load(document.URL + ' #thapa');
+        });
+      
+       $('#review').on('submit', function(e){
+               e.preventDefault();
+          
+               var host = "{{URL::to('/')}}";
+               var review = $('#name').val();
+               var id = {{$subject->id}};
+
+               if(review == null || review == "" || Difficulty_rating == null || Difficulty_rating == " "||     Interest_rating == null || Interest_rating  == " ")
+               {
+                         alert("Field is missing");
+               }
+               else
+               {
+               $.ajax({
+                    type: "POST",
+                            url: host + '/subjects',
+                            data: {review : review,diff_rate:Difficulty_rating, int_rate:Interest_rating,id:id},
+                            success:function(msg){
+                                    $("#review")[0].reset();
+                                    alert(msg);
+                             
+                    $("#difficulty span").removeClass('checked');
+                    $("#interest span").removeClass('checked');
+                    $("#thapa").load(document.URL + ' #thapa');
+                            }         
+                       });
+               
+                 } 
+     
+                }); 
+
 
                 $('#horizontalTab').responsiveTabs({
                 

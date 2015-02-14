@@ -35,6 +35,18 @@ class SubjectController extends \BaseController {
             $auth_user = Auth::user();
 
             return View::make('subjects.show',compact(['subject','reviews','auth_user']));
-	}
+    }
+   
+    public function store()
+    {
+
+            $subjectid = Input::get('id');
+            $user = Auth::user();
+            $review = Input::get('review');
+            $diff_rate = Input::get('diff_rate');
+            $int_rate = Input::get('int_rate');
+
+             return $review;
+    } 
 
 }

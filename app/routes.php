@@ -78,8 +78,9 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::get('/','PagesController@home');
           Route::resource('users','UsersController',['except'=>['create','store','destroy']]);
 
-          Route::resource('courses','CourseController',['only'=>['index','show']]);
-          Route::resource('subjects','SubjectController',['only'=>['index','show']]); 
+          Route::resource('courses','CourseController',['only'=>['show']]);
+          Route::resource('subjects','SubjectController',['only'=>['show','store']]); 
+
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){

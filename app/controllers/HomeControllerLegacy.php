@@ -66,6 +66,7 @@ class HomeController extends BaseController {
         return "your review has been successfully posted";
                     
         }
+        
         public function like($reviewid)
         {
                 $userid = Auth::user()->id;
