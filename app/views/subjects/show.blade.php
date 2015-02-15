@@ -219,28 +219,66 @@
                  @endforeach
                 
                  <hr>
-                  User Contribution
-                 <br>
-               
-               <div id ="bijay">
-                  @foreach($user_resources as $user_resource)
-                            {{$user_resource->name}}
-                            {{$user_resource->caption}}
-                  @endforeach 
-               </div>
-                  <br>                         
-                  !Share Knowledge
-                   <br>
+                   
+                 <div class = "col-sm-6 thumbnail">     
+                  <h4 class = "text-center"><strong>Share your knowledge </strong></h4>
+                   <hr>
            
-                         
-                 {{Form::label('caption','Caption')}}
-                 {{ Form::text('caption',null,['class'=>'']) }}
-            
+                  <div class = "col-sm-4"> 
+                   <h6>
+                 {{Form::label('caption','Caption:',['class'=>'floatleft'])}}
+                   </h6>
+                   </div>
+                  
+                  <div class = "col-sm-8"> 
+                  <p>
+                 {{Form::textarea('caption',null,array('id'=>'caption',  'style' => 'width:100%; height: 80px' ))}}
+                  </p>
+                  </div>
+                 
+                   <div class ="col-sm-4">
+                  <h6>
                  {{Form::label('link_to','Link')}}
-                 {{ Form::text('link_to',null,['class'=>'']) }}
-           
-                 <button  type="button" onclick="contribution()" class ="btn btn-primary" >Submit</button>
-        </div>
+                  </h6>
+                  </div>
+                  
+                  <div class ="col-sm-8">
+
+                   <p>  
+                  {{ Form::textarea('link_to',null,['id' =>'caption', 'style' => 'width:100%; height: 80px']) }}
+                   </p>
+                  </div>
+
+                 <button  type="button" style ="margin-right:15px"  onclick="contribution()" class ="btn btn-primary rightshift" >Submit</button>
+                
+                  </div>
+                 
+                <div class ="col-sm-6 ">
+
+                 <div class ="panel panel-default">
+
+                             <h4 class = "text-center"><strong>  User Contribution</strong></h4>
+                             <br>
+                 
+                         <div id ="bijay">
+                         <table class ="table table-bordered table-striped">
+                              <tbody>
+
+                         @foreach($user_resources as $user_resource)
+                                <tr> 
+                                <td style="width:45%"><h6><i class="fa fa-user" style="margin-right:2px"></i>{{ link_to("/users/{$user_resource->user_id}",$user_resource->name) }}</h6></td>
+                                <td><p>{{$user_resource->caption}}</p></td>
+                                </tr>       
+                         @endforeach 
+
+                             </tbody> 
+                       </table>
+                
+                         </div>
+
+                 </div>
+                </div>                 
+                      </div>
        </div>
 
 </div>
