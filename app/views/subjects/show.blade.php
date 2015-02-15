@@ -213,9 +213,35 @@
 
            <div id ="tab-3">
              <div class ="info">
-             </div>
-           </div>
-
+                
+                 @foreach($admin_resources as $admin_resource)
+                        {{$admin_resource->caption}}
+                 @endforeach
+                
+                 <hr>
+                  User Contribution
+                 <br>
+               
+               <div id ="bijay">
+                  @foreach($user_resources as $user_resource)
+                            {{$user_resource->name}}
+                            {{$user_resource->caption}}
+                  @endforeach 
+               </div>
+                  <br>                         
+                  !Share Knowledge
+                   <br>
+           
+                         
+                 {{Form::label('caption','Caption')}}
+                 {{ Form::text('caption',null,['class'=>'']) }}
+            
+                 {{Form::label('link_to','Link')}}
+                 {{ Form::text('link_to',null,['class'=>'']) }}
+           
+                 <button  type="button" onclick="contribution()" class ="btn btn-primary" >Submit</button>
+        </div>
+       </div>
 
 </div>
 </div>
@@ -226,6 +252,38 @@
 
 <script>
 
+function contribution()
+{
+         var host = "{{URL::to('/')}}";
+       
+         var caption = $('#caption').val();
+         var link = $('#link_to').val();
+         var id = {{$subject->id}};
+
+
+         if(caption == null || caption == "" ||link == null || link =="")
+         {
+                alert("Some field is missing");
+         } 
+         else
+         {
+         $.ajax({
+         type: "POST",
+         url: host + '/subjects/contribution',
+         data: { caption:caption,link:link,id:id},
+         success:function(msg){
+                 
+                 alert(msg);                
+                
+                 $("#caption").val("");
+                 $("#link_to").val("");
+
+          $("#bijay").load(document.URL + ' #bijay');
+       
+                  }
+         });
+          }
+}
 var Difficulty_rating;
 var Interest_rating;
 

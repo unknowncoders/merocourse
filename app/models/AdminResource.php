@@ -5,7 +5,7 @@ class AdminResource extends \Eloquent {
 
     protected $table = 'adminResources';
 
-    public subject(){
+    public function subject(){
         return $this->belongsTo('Subject','subject_id');
     }
 }

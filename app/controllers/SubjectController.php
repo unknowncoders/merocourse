@@ -4,13 +4,14 @@ class SubjectController extends \BaseController {
 
         protected $subject;
 
-        public function __construct(Subject $subject, Review $review, DifficultyRating $difficulty_rating, InterestRating $interest_rating,Vote $vote){
+        public function __construct(Subject $subject, Review $review, DifficultyRating $difficulty_rating, InterestRating $interest_rating,Vote $vote,UserResource $user_resource ){
 
                      $this->subject = $subject;
                      $this->review = $review; 
                      $this->difficulty_rating = $difficulty_rating;
                      $this->interest_rating = $interest_rating;
                      $this->vote =  $vote;
+                     $this->user_resource = $user_resource;
         }
 
 
@@ -35,6 +36,14 @@ class SubjectController extends \BaseController {
 	public function show(Subject $subject)
 	{
             $reviews = $subject->reviews()->get();
+            
+            $user_resources = $subject->userResources()->get();
+            $admin_resources = $subject->adminResources()->get();
+             
+            foreach($user_resources as $user_resource)
+               {
+                   $user_resource['name'] = User::where('id',$user_resource->user_id)->pluck('name');
+               }
 
             $auth_user = Auth::user();
             
@@ -51,7 +60,7 @@ class SubjectController extends \BaseController {
                     }
             }
 
-            return View::make('subjects.show',compact(['subject','reviews','auth_user']));
+            return View::make('subjects.show',compact(['subject','reviews','auth_user','user_resources','admin_resources']));
     }
   //used to store the new review data   
     public function store()
@@ -132,6 +141,24 @@ class SubjectController extends \BaseController {
                 
 
                    }
+ 
+     }
+    
+    //to store the material provided by user
 
+    public function postcontribution()
+    {
+             $link = Input::get('link');
+             $caption = Input::get('caption');
+             $subjectid = Input::get('id');
+              
+             $this->user_resource->user_id = Auth::user()->id;
+             $this->user_resource->subject_id =$subjectid;
+             $this->user_resource->caption = $caption;
+             $this->user_resource->link = $link;
+            
+             $this->user_resource->save();
+
+             return "Thanks for your contribution";
     }
 }

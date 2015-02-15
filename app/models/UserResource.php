@@ -2,7 +2,10 @@
 
 class UserResource extends \Eloquent {
 	protected $fillable = [];
-
+   
+    
+   protected $table ='userResources';
+   
     public function user(){
             return $this->belongsTo('User','user_id');
     }
