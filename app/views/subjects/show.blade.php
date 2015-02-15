@@ -84,7 +84,7 @@
                      @foreach($reviews as $review)
 
                 <div class ="col-sm-3 "> 
-                  <h4><i class="fa fa-user fa-2x"></i>{{ link_to("/users/{$review->user->id}",$review->user->name) }}</h4> 
+                  <h4><i class="fa fa-user fa-2x" style="margin-right:10px"></i>{{ link_to("/users/{$review->user->id}",$review->user->name) }}</h4> 
                 </div>
 
                  <div class = "col-sm-9  " >
@@ -93,11 +93,32 @@
                     <br>
                 </div>
 
-     
+                   
                 <div class ="col-sm-13 " style ="text-align:right">
+                  
+                  @if( $review->usr_vote == -1)
+                            
                      {{ $review->upvote }}
+                   <button   id = "up"  type="button" onclick= "voting({{$review->id}},1)" ><i class="fa fa-thumbs-o-up"></i></button>
                      {{ $review->downvote }}
-                <hr>
+                   <button id ="down"  type="button" onclick= "voting({{$review->id}},0)"><i class="fa fa-thumbs-o-down"></i></button>
+                
+                 @elseif($review->usr_vote == 0)
+
+                     {{ $review->upvote }}
+                   <button   type="button" onclick="voting({{$review->id}},1)"><i class="fa fa-thumbs-o-up"></i></button>
+                     {{ $review->downvote }}
+                   <button  type="button" onclick="voting({{$review->id}},0)"><i class="fa fa-thumbs-down"></i></button>
+                 
+                  @elseif($review->usr_vote == 1)
+
+                     {{ $review->upvote }}
+                   <button type="button" onclick="voting({{$review->id}},1)"><i class="fa fa-thumbs-up"></i></button>
+                     {{ $review->downvote }}
+                   <button  type="button" onclick="voting({{$review->id}},0)"><i class="fa fa-thumbs-o-down"></i></button>
+                 @endif
+                   
+              <hr>
 
                </div>
                 
@@ -281,10 +302,23 @@ $(document).ready(function()
                 $('#horizontalTab').responsiveTabs({
                 
                  });
-
-
-
 });
+
+ function voting(review_id, vote)
+ {
+         var host = "{{URL::to('/')}}";
+         $.ajax({
+         type: "POST",
+         url: host + '/subjects/voting',
+         data: { review_id:review_id,vote:vote},
+         success:function(msg){
+        $("#thapa").load(document.URL + ' #thapa');
+       
+                  }
+              });
+ 
+ }
+
 
 </script>
 @stop

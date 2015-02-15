@@ -71,7 +71,7 @@ class HomeController extends BaseController {
         {
                 $userid = Auth::user()->id;
                 $getstatus = Input::get('name');
-                 $subjectid = Input::get('sid');
+                $subjectid = Input::get('sid');
 
                $status = Urs::where('user_id', $userid)->where('review_id',$reviewid)->pluck('status'); 
                $up = Review::where('id',$reviewid)->pluck('up');

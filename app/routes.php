@@ -80,7 +80,10 @@ Route::group(['before'=>'auth|confirmed'],function(){
 
           Route::resource('courses','CourseController',['only'=>['show']]);
           Route::resource('subjects','SubjectController',['only'=>['show','store']]); 
-
+          
+          Route::post('subjects/voting',[
+                'uses' => 'SubjectController@postvoting',
+                  ]);
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){
