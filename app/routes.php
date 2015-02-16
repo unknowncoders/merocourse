@@ -90,6 +90,10 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::post('subjects/rating',[
                 'uses' => 'SubjectController@postrating',
                   ]);
+          Route::post('subjects/deletereview',[
+                'uses' => 'SubjectController@deletereview',
+                    ]);
+
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){

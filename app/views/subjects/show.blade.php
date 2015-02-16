@@ -100,9 +100,10 @@
                   </li>
 
                   </ul>   
-              </div>
 
-            </div> 
+              </div>
+            <br><br><br>
+             </div> 
                      @foreach($reviews as $review)
 
                 <div class ="col-sm-3 "> 
@@ -222,7 +223,7 @@
                  <button  type="button" style ="margin-right:15px"  onclick="rating()" class ="btn btn-primary rightshift" >Rate</button>
                  @else
                   <div class ="col-sm-4   ">
-                  <h5><strong>Your Difficulty Rating:</strong></h5></div>
+                  <h5><strong>Your Difficulty Rating </strong></h5></div>
                   <div class ="col-sm-7  ">
 
                       @for($i = 0; $i<5; $i++)
@@ -242,7 +243,7 @@
                    </div>
 
                   <div class ="col-sm-4 ">
-                  <h5><strong>Your Interest Rating:</strong></h5></div>
+                  <h5><strong>Your Interest Rating</strong></h5></div>
 
                   <div class ="col-sm-7 ">
 
@@ -265,10 +266,10 @@
                  </div>
                 </div>
 
-
+           <div id = "already_written">                
+               @if($already_written == null || $already_written == "")
                   <div class  = "col-sm-3"> 
-                           {{Form::open(array('method' =>'post' ,  'id' =>'review'))}} 
-                          <h5>   {{Form::label('name','Your Review')}}</h5>
+                          <h5>  {{Form::label('name','Your Review')}}</h5>
                            </div>
               
                        <div class ="col-sm-9 ">
@@ -278,9 +279,26 @@
                         </div>
                                   <br/>
                    <div class ="col-sm-13">
-                     {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary rightshift'))}}
-                  <br/><br/>
+
+                 <button  type="button"  onclick="postreview()" class ="btn btn-primary rightshift" >Submit</button>
+                  
+                   <br/><br/>
                    </div>
+                @else
+                
+                  <div class ="col-sm-3 ">
+                  <h5><strong>Your Review</strong></h5></div>
+
+                 <div class="col-sm-9">
+                 <p> 
+                {{$already_written->content}}
+                </p>
+               </div>
+
+                 <button  type="button"  onclick="deletereview({{$already_written->id}})" class ="btn btn-danger rightshift" >Delete Review</button>
+                
+              @endif
+             </div>
 
              </div>
            </div>
@@ -447,8 +465,13 @@ $(document).ready(function()
           $("#thapa").load(document.URL + ' #thapa');
         });
       
-       $('#review').on('submit', function(e){
-               e.preventDefault();
+                   $('#horizontalTab').responsiveTabs({
+                
+                 });
+});
+
+function postreview()
+{
           
                var host = "{{URL::to('/')}}";
                var review = $('#name').val();
@@ -465,25 +488,19 @@ $(document).ready(function()
                             url: host + '/subjects',
                             data: {review : review,id:id},
                             success:function(msg){
-                                    $("#review")[0].reset();
+                                    $("#review").val("");
                                     alert(msg);
-                             
-             //         $("#difficulty span").removeClass('checked');
-             //       $("#interest span").removeClass('checked');
-                    $("#thapa").load(document.URL + ' #thapa');
+                                   
+                   $("#thapa").load(document.URL + ' #thapa');
+                   $("#already_written").load(document.URL + ' #already_written');
+                   
                             }         
                        });
                
                  } 
      
-                }); 
 
-
-                $('#horizontalTab').responsiveTabs({
-                
-                 });
-});
-
+}
  function voting(review_id, vote)
  {
          var host = "{{URL::to('/')}}";
@@ -519,7 +536,7 @@ $(document).ready(function()
              success:function(msg){
                          alert(msg);
                              
-                         $("#mathiko").load(document.URL + ' #mathiko');
+                          $("#mathiko").load(document.URL + ' #mathiko');
                           $("#talako").load(document.URL + ' #talako');
 
                                    }         
@@ -527,8 +544,24 @@ $(document).ready(function()
 
 
      }
-
     
  }
+function deletereview(id)
+{
+        var host = "{{URL::to('/')}}";
+      
+        $.ajax({
+             type: "POST",
+             url: host + '/subjects/deletereview',
+             data: {id:id},
+             success:function(msg){
+                         alert(msg);
+                   $("#thapa").load(document.URL + ' #thapa');
+                   $("#already_written").load(document.URL + ' #already_written');
+                   
+                            }         
+                });
+
+}
 </script>
 @stop

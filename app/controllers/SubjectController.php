@@ -43,7 +43,8 @@ class SubjectController extends \BaseController {
             $diff_rate =  DifficultyRating::where('user_id',Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
             $int_rate = InterestRating::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
 
-
+            $already_written = Review::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->first();
+         
             foreach($user_resources as $user_resource)
                {
                    $user_resource['name'] = User::where('id',$user_resource->user_id)->pluck('name');
@@ -64,11 +65,22 @@ class SubjectController extends \BaseController {
                     }
             }
 
-            return View::make('subjects.show',compact(['subject','diff_rate','int_rate','reviews','auth_user','user_resources','admin_resources']));
+            return View::make('subjects.show',compact(['subject','already_written','diff_rate','int_rate','reviews','auth_user','user_resources','admin_resources']));
     }
     //user to store the rating of the subject
+   
+    public function deletereview()
+    
+    {
+            $id = Input::get('id');
+             Review::find(Input::get('id'))->delete();
+   
+            Vote::where('review_id',$id)->delete();
 
-   public function postrating()
+            return "Your Review is successfully deleted"; 
+    }
+    
+  public function postrating()
    {
         $diff_rating = Input::get('diff_rating');
         $int_rating = Input::get('int_rating');
