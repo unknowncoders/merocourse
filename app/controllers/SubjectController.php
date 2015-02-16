@@ -39,7 +39,11 @@ class SubjectController extends \BaseController {
             
             $user_resources = $subject->userResources()->get();
             $admin_resources = $subject->adminResources()->get();
-             
+           
+            $diff_rate =  DifficultyRating::where('user_id',Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
+            $int_rate = InterestRating::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
+
+
             foreach($user_resources as $user_resource)
                {
                    $user_resource['name'] = User::where('id',$user_resource->user_id)->pluck('name');
@@ -60,30 +64,46 @@ class SubjectController extends \BaseController {
                     }
             }
 
-            return View::make('subjects.show',compact(['subject','reviews','auth_user','user_resources','admin_resources']));
+            return View::make('subjects.show',compact(['subject','diff_rate','int_rate','reviews','auth_user','user_resources','admin_resources']));
     }
-  //used to store the new review data   
+    //user to store the rating of the subject
+
+   public function postrating()
+   {
+        $diff_rating = Input::get('diff_rating');
+        $int_rating = Input::get('int_rating');
+        $subject_id = Input::get('id');
+        $user_id = Auth::user()->id;
+
+        $this->difficulty_rating->user_id = $user_id;
+        $this->difficulty_rating->subject_id = $subject_id;
+        $this->difficulty_rating->rating = $diff_rating;
+         
+        $this->interest_rating->user_id  = $user_id;
+        $this->interest_rating->subject_id = $subject_id;
+        $this->interest_rating->rating = $int_rating;
+     
+        $this->difficulty_rating->save();
+        $this->interest_rating->save();
+
+        //here we have to upadte the rating of the subject
+
+        return("Thanks for your Rating"); 
+   }
+    //used to store the new review data   
     public function store()
     {
 
             $subjectid = Input::get('id');
             $user = Auth::user();
             $review = Input::get('review');
-            $diff_rate = Input::get('diff_rate');
-            $int_rate = Input::get('int_rate');
- 
+
          //storing the data in the respected table
 
             $this->review->user_id = $user->id;
             $this->review->subject_id = $subjectid;
             $this->review->content = $review;
             $this->review->save();
-
-              //         $this->subject = $subject;
-              //       $this->review = $review; 
-              //     $this->difficulty_rating = $difficulty_rating;
-              //       $this->interest_rating = $interest_rating
-            
 
              return "Your Review is successfully posted";
     } 

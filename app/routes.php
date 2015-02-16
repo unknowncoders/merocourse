@@ -87,6 +87,9 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::post('subjects/contribution',[
                 'uses' => 'SubjectController@postcontribution',
                   ]);
+          Route::post('subjects/rating',[
+                'uses' => 'SubjectController@postrating',
+                  ]);
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){

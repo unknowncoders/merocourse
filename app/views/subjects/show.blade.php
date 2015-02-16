@@ -22,7 +22,8 @@
 </div>
 
 <div class ="col-sm-4 thumbnail " >
-
+<!--to reload the div after the rating is enter by the user -->
+<div id = "mathiko">
 <div class ="col-sm-7   "><h5> Difficulty Rating:</h5></div>
 <div class ="col-sm-5  ">
 
@@ -58,7 +59,7 @@
 @endfor
 
 </div>
-
+</div>
 <div class ="col-sm-7 "><h5> Full Marks:</h5></div>
 <div class ="col-sm-5 "><h5> {{ $subject->fullMarks }}</h5> </div>
 
@@ -69,7 +70,7 @@
 <div id = "horizontalTab">
         <ul>
             <li><a href="#tab-1"><h4>Review</h4></a></li>
-            <li><a href="#tab-2"><h4>New Review</h4></a></li>
+            <li><a href="#tab-2"><h4> Your Thoughts</h4></a></li>
             <li><a href="#tab-3"><h4>Resources</h4></a></li>
         </ul>
 <!-- to show review-->
@@ -80,7 +81,28 @@
             <div id = "thapa"> 
               
             <div class="col-sm-13 ">
-           
+            
+            <div class="col-sm-13">
+                 <div class ="navbar-collapse collapse">
+                  <ul class ="nav navbar-nav navbar-right">
+                
+                      <li><a href = ""><h5>View Review By :</h5></a></li>
+                      <li class ="dropdown">
+                      <a href="#" class ="dropdown-toggle" data-toggle ="dropdown">
+                      <h5><b class ="caret"></b></h5></a>
+                      </a>
+                  
+                  <ul class ="dropdown-menu">
+                  <li><a href ="#" onclick = "viewby()" data-toggle="modal"class ="sans"><h5>Most Recent</h5></a>  </li>
+                  <li><a href = "#" onclick = "viewby()" data-toggle="modal"class ="sans"><h5>Most Popular </h5></a></li>
+                  </ul>
+
+                  </li>
+
+                  </ul>   
+              </div>
+
+            </div> 
                      @foreach($reviews as $review)
 
                 <div class ="col-sm-3 "> 
@@ -136,18 +158,13 @@
 
              <div id ="tab-2">
              <div class ="info">
+           
+  <!--to refresh the difficulty_rating and interest_rating of the user-->
+           <div id = "talako">             
+              <div class ="thumbnail"> 
+     
+             @if($diff_rate == null || $diff_rate == "")
 
-                          <div class  = "col-sm-3"> 
-                           {{Form::open(array('method' =>'post' ,  'id' =>'review'))}} 
-                          <h5>   {{Form::label('name','Your Review')}}</h5>
-                           </div>
-              
-                       <div class ="col-sm-9 ">
-                        <p> {{Form::textarea('username',null,array('id'=>'name', 'name'=>'name', 'style' => 'width:100%; height: 350px','placeholder' =>'You can also use html tags such as <h4>, <br>' ))}}
-                        </p>      
-                        <hr>    
-                        </div>
-                
                       <h5>
                        <div class ="col-sm-3"  > {{Form::label('diff_rate','Difficulty Rating: ')}}</div>
                       </h5>
@@ -199,8 +216,67 @@
                           <label title="1 stars" for="score-10">1 stars</label>
                        </div> 
                        </div>
+                        <hr>    
                        </div>
-                   <br/>
+
+                 <button  type="button" style ="margin-right:15px"  onclick="rating()" class ="btn btn-primary rightshift" >Rate</button>
+                 @else
+                  <div class ="col-sm-4   ">
+                  <h5><strong>Your Difficulty Rating:</strong></h5></div>
+                  <div class ="col-sm-7  ">
+
+                      @for($i = 0; $i<5; $i++)
+ 
+                      @if($i<$diff_rate)
+
+                        <div class ="stardiff"><h5>★ </h5></div>
+
+                      @else 
+        
+                         <div class ="starwhite"><h5> ☆ </h5></div>
+
+                      @endif
+  
+                      @endfor
+
+                   </div>
+
+                  <div class ="col-sm-4 ">
+                  <h5><strong>Your Interest Rating:</strong></h5></div>
+
+                  <div class ="col-sm-7 ">
+
+                  @for($i = 0; $i<5; $i++)
+ 
+                    @if($i<$int_rate)
+
+                    <div class="starint"><h5>★ </h5></div>
+
+                    @else
+                    <div class="starwhite"><h5> ☆ </h5></div>
+                    @endif
+  
+                    @endfor
+
+                </div>
+
+                @endif
+
+                 </div>
+                </div>
+
+
+                  <div class  = "col-sm-3"> 
+                           {{Form::open(array('method' =>'post' ,  'id' =>'review'))}} 
+                          <h5>   {{Form::label('name','Your Review')}}</h5>
+                           </div>
+              
+                       <div class ="col-sm-9 ">
+                        <p> {{Form::textarea('username',null,array('id'=>'name', 'name'=>'name', 'style' => 'width:100%; height: 350px','placeholder' =>'You can also use html tags such as <h4>, <br>' ))}}
+                        </p>      
+                        <hr>    
+                        </div>
+                                  <br/>
                    <div class ="col-sm-13">
                      {{Form::submit('Submit', array('name'=>'submit' , 'id' => 'tori','class' => 'btn btn-primary rightshift'))}}
                   <br/><br/>
@@ -213,14 +289,16 @@
 
            <div id ="tab-3">
              <div class ="info">
-                
-                 @foreach($admin_resources as $admin_resource)
-                        {{$admin_resource->caption}}
-                 @endforeach
-                
+                <div class ="col-sm-13  thumbnail">
+              
+                  @foreach($admin_resources as $admin_resource)
+                     <a href ="#" class ="col-sm-2 btn btn-success"  role="button" style ="margin-right:15px">  {{$admin_resource->caption}} </a>
+                  @endforeach
+              
+                </div>
                  <hr>
                    
-                 <div class = "col-sm-6 thumbnail">     
+                  <div class = "col-sm-6 thumbnail">     
                   <h4 class = "text-center"><strong>Share your knowledge </strong></h4>
                    <hr>
            
@@ -245,7 +323,7 @@
                   <div class ="col-sm-8">
 
                    <p>  
-                  {{ Form::textarea('link_to',null,['id' =>'caption', 'style' => 'width:100%; height: 80px']) }}
+                  {{ Form::textarea('link_to',null,['id' =>'link_to', 'style' => 'width:100%; height: 80px']) }}
                    </p>
                   </div>
 
@@ -267,7 +345,7 @@
                          @foreach($user_resources as $user_resource)
                                 <tr> 
                                 <td style="width:45%"><h6><i class="fa fa-user" style="margin-right:2px"></i>{{ link_to("/users/{$user_resource->user_id}",$user_resource->name) }}</h6></td>
-                                <td><p>{{$user_resource->caption}}</p></td>
+                                <td><p><a href={{$user_resource->link}} >{{$user_resource->caption}}</a></p></td>
                                 </tr>       
                          @endforeach 
 
@@ -290,6 +368,12 @@
 
 <script>
 
+function viewby()
+{
+        
+    alert("abc");
+
+}
 function contribution()
 {
          var host = "{{URL::to('/')}}";
@@ -370,7 +454,7 @@ $(document).ready(function()
                var review = $('#name').val();
                var id = {{$subject->id}};
 
-               if(review == null || review == "" || Difficulty_rating == null || Difficulty_rating == " "||     Interest_rating == null || Interest_rating  == " ")
+               if(review == null || review == "" )
                {
                          alert("Field is missing");
                }
@@ -379,13 +463,13 @@ $(document).ready(function()
                $.ajax({
                     type: "POST",
                             url: host + '/subjects',
-                            data: {review : review,diff_rate:Difficulty_rating, int_rate:Interest_rating,id:id},
+                            data: {review : review,id:id},
                             success:function(msg){
                                     $("#review")[0].reset();
                                     alert(msg);
                              
-                    $("#difficulty span").removeClass('checked');
-                    $("#interest span").removeClass('checked');
+             //         $("#difficulty span").removeClass('checked');
+             //       $("#interest span").removeClass('checked');
                     $("#thapa").load(document.URL + ' #thapa');
                             }         
                        });
@@ -415,6 +499,36 @@ $(document).ready(function()
  
  }
 
+ function rating()
+ {
+     if( Difficulty_rating == null || Difficulty_rating == "" || Interest_rating == null || Interest_rating =="")
+     {
+           alert("Some field is missing");
+       
+     }
+    
+     else
+     {
+        var host = "{{URL::to('/')}}";
+        var id = {{$subject->id}};
 
+        $.ajax({
+             type: "POST",
+             url: host + '/subjects/rating',
+             data: {diff_rating: Difficulty_rating,int_rating:Interest_rating ,id:id},
+             success:function(msg){
+                         alert(msg);
+                             
+                         $("#mathiko").load(document.URL + ' #mathiko');
+                          $("#talako").load(document.URL + ' #talako');
+
+                                   }         
+                });
+
+
+     }
+
+    
+ }
 </script>
 @stop
