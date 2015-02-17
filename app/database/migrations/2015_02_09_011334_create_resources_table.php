@@ -19,7 +19,7 @@ class CreateResourcesTable extends Migration {
             $table->integer('subject_id')->unsigned();
             $table->string('caption',100);
             $table->string('link');
-
+            $table->boolean('check')->default(0);
 		    $table->timestamps();
 
 	        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -35,13 +35,14 @@ class SubjectController extends \BaseController {
 	 */
 	public function show(Subject $subject)
 	{
+       
             $reviews = $subject->reviews()->get();
             
-            $user_resources = $subject->userResources()->get();
+            $user_resources = $subject->userResources()->where('check',1)->get();
             $admin_resources = $subject->adminResources()->get();
            
-            $diff_rate =  DifficultyRating::where('user_id',Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
-            $int_rate = InterestRating::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->pluck('rating');
+            $diff_rate =  DifficultyRating::where('user_id',Auth::user()->id)->where('subject_id',$subject->id)->first();
+            $int_rate = InterestRating::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->first();
 
             $already_written = Review::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->first();
          
@@ -65,6 +66,7 @@ class SubjectController extends \BaseController {
                     }
             }
 
+            
             return View::make('subjects.show',compact(['subject','already_written','diff_rate','int_rate','reviews','auth_user','user_resources','admin_resources']));
     }
     //user to store the rating of the subject
@@ -98,11 +100,32 @@ class SubjectController extends \BaseController {
         $this->difficulty_rating->save();
         $this->interest_rating->save();
 
+        $total_diff_rating = DifficultyRating::avg('rating');   
+        $total_int_rating  = InterestRating::avg('rating');
+         
+        Subject::where('id', $subject_id)->update(array('difficulty_rating' => $total_diff_rating , 'interest_rating'=> $total_int_rating));
         //here we have to upadte the rating of the subject
 
         return("Thanks for your Rating"); 
    }
+
+    public function updaterating()
+    {        $diff_rate_id  = Input::get('diff_rate_id');
+             $int_rate_id = Input::get('int_rate_id');
+             $subject_id = Input::get('id');
+   
+             DifficultyRating::find($diff_rate_id)->delete();
+             InterestRating::find($int_rate_id)->delete();
+ 
+        $total_diff_rating = DifficultyRating::avg('rating');   
+        $total_int_rating  = InterestRating::avg('rating');
+         
+        Subject::where('id', $subject_id)->update(array('difficulty_rating' => $total_diff_rating , 'interest_rating'=> $total_int_rating));
+     
+         return "Now you can your rate again";
+    }
     //used to store the new review data   
+   
     public function store()
     {
 

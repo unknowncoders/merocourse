@@ -24,6 +24,7 @@
 <div class ="col-sm-4 thumbnail " >
 <!--to reload the div after the rating is enter by the user -->
 <div id = "mathiko">
+
 <div class ="col-sm-7   "><h5> Difficulty Rating:</h5></div>
 <div class ="col-sm-5  ">
 
@@ -228,7 +229,7 @@
 
                       @for($i = 0; $i<5; $i++)
  
-                      @if($i<$diff_rate)
+                      @if($i<$diff_rate->rating)
 
                         <div class ="stardiff"><h5>★ </h5></div>
 
@@ -249,7 +250,7 @@
 
                   @for($i = 0; $i<5; $i++)
  
-                    @if($i<$int_rate)
+                    @if($i<$int_rate->rating)
 
                     <div class="starint"><h5>★ </h5></div>
 
@@ -261,7 +262,9 @@
 
                 </div>
 
-                @endif
+                 <button  type="button"  onclick="updaterating({{$diff_rate->id}},{{$int_rate->id}})" class ="btn btn-danger rightshift" >Update Rating</button>
+                 
+                 @endif
 
                  </div>
                 </div>
@@ -392,6 +395,7 @@ function viewby()
     alert("abc");
 
 }
+
 function contribution()
 {
          var host = "{{URL::to('/')}}";
@@ -546,6 +550,7 @@ function postreview()
      }
     
  }
+ 
 function deletereview(id)
 {
         var host = "{{URL::to('/')}}";
@@ -561,6 +566,30 @@ function deletereview(id)
                    
                             }         
                 });
+
+}
+
+function updaterating(diff_rate_id,int_rate_id)
+{
+        var host = "{{URL::to('/')}}";
+        var id = {{$subject->id}};
+
+
+        $.ajax({
+             type: "POST",
+             url: host + '/subjects/updaterating',
+             data: {id:id, diff_rate_id:diff_rate_id,int_rate_id:int_rate_id},
+             success:function(msg){
+                         alert(msg);
+                             
+                          $("#mathiko").load(document.URL + ' #mathiko');
+                          $("#talako").load(document.URL + ' #talako');
+
+                                   }         
+                });
+
+
+
 
 }
 </script>

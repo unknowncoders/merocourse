@@ -93,6 +93,9 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::post('subjects/deletereview',[
                 'uses' => 'SubjectController@deletereview',
                     ]);
+          Route::post('subjects/updaterating',[
+                'uses' => 'SubjectController@updaterating',
+                    ]);
 
 });
 
