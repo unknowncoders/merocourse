@@ -86,6 +86,15 @@ Route::group(['before'=>'auth|confirmed'],function(){
                 'uses' => 'SubjectController@show',
           ]);
                   //])->where('filter','[a-z]+')
+          //
+
+          Route::post('users/unfollow',[
+                'uses' => 'UsersController@unfollow',
+                  ]);
+
+          Route::post('users/follow',[
+                'uses' => 'UsersController@follow',
+                  ]);
           
           Route::post('subjects/voting',[
                 'uses' => 'SubjectController@postvoting',

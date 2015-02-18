@@ -12,7 +12,7 @@ class Course extends \Eloquent {
 
 
     public function users(){
-        return $this->belongsToMany('User','UserCourse');
+        return $this->belongsToMany('User','UserCourse','course_id','user_id');
     }
 
     public function durationToStr(){

@@ -97,7 +97,28 @@ class UsersController extends \BaseController {
             $auth_user = Auth::user();
             $courses = $user->courses()->orderBy('name','ASC')->get();
 
-            return View::make('users.show',compact(['user','courses','auth_user']));
+            $allCourses = Course::all();
+
+            $filteredCourses = $allCourses->filter(function($courseInst){
+
+                    $courseUsers = $courseInst->users()->get();
+                
+                    foreach($courseUsers as $courseUser){
+                            if($courseUser->id == Auth::user()->id){
+                                    return false;
+                            }
+                    }
+
+                    return true;
+            
+            });
+
+            $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+            foreach($reviews as $review){
+                    $subjectStr[] = $review->subject->name;
+            }
+
+            return View::make('users.show',compact(['user','courses','auth_user','filteredCourses','reviews','subjectStr']));
 
 	}
 
@@ -160,5 +181,26 @@ class UsersController extends \BaseController {
              });
 
              return View::make('activate')->with('flash_message','An email has been sent to you again. Please use it to complete the registration process');
+    }
+
+    public function unfollow()
+    {
+            $courseId = Input::get('course_id');
+
+            $course = Course::where('id','=',$courseId)->first();
+
+            $course->users()->detach(Auth::user()->id);
+
+
+    }
+    
+    public function follow()
+    {
+            $courseId = Input::get('course_id');
+
+            $course = Course::where('id','=',$courseId)->first();
+
+            $course->users()->attach(Auth::user()->id);
+
     }
 }
