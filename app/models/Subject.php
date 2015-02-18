@@ -8,7 +8,7 @@ class Subject extends Eloquent
 
    public function courseterms()
     {
-          return $this->belongsToMany('CourseTerm','CourseTermSubjects');
+          return $this->belongsToMany('CourseTerm','CourseTermSubjects','subject_id','courseterm_id');
     }
 
    public function reviews()
@@ -35,4 +35,6 @@ class Subject extends Eloquent
    {
            return $this->hasMany('AdminResource','subject_id');
    }
+
+   
 }

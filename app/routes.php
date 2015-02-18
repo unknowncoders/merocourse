@@ -80,6 +80,12 @@ Route::group(['before'=>'auth|confirmed'],function(){
 
           Route::resource('courses','CourseController',['only'=>['show']]);
           Route::resource('subjects','SubjectController',['only'=>['show','store']]); 
+
+          Route::get('subjects/{subjects}/{filter?}',[
+                'as' => 'subjects.show',
+                'uses' => 'SubjectController@show',
+          ]);
+                  //])->where('filter','[a-z]+')
           
           Route::post('subjects/voting',[
                 'uses' => 'SubjectController@postvoting',

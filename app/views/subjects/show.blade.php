@@ -19,6 +19,17 @@
 <br/><br/>
 <div class ="col-sm-8 ">
 <h3>{{$subject->name}}</h3>
+<br>
+<?php $cnt = 0; ?>
+
+@foreach($courses as $course)
+
+{{ link_to("/courses/".$course[$cnt]["id"],"#".$course[$cnt]["name"]) }}
+&nbsp;
+<? php $cnt++; ?>
+
+@endforeach
+
 </div>
 
 <div class ="col-sm-4 thumbnail " >
@@ -71,9 +82,13 @@
 <div id = "horizontalTab">
         <ul>
             <li><a href="#tab-1"><h4>Review</h4></a></li>
-            <li><a href="#tab-2"><h4> Your Thoughts</h4></a></li>
+           @if($isRelated == true)
+           
+           <li><a href="#tab-2"><h4> Your Thoughts</h4></a></li>
             <li><a href="#tab-3"><h4>Resources</h4></a></li>
-        </ul>
+         
+        @endif
+           </ul>
 <!-- to show review-->
 
             <div id="tab-1">
@@ -94,8 +109,13 @@
                       </a>
                   
                   <ul class ="dropdown-menu">
-                  <li><a href ="#" onclick = "viewby()" data-toggle="modal"class ="sans"><h5>Most Recent</h5></a>  </li>
-                  <li><a href = "#" onclick = "viewby()" data-toggle="modal"class ="sans"><h5>Most Popular </h5></a></li>
+              
+                  <li data-toggle="modal" class ="sans"> <h5>{{ link_to("/subjects/{$subject->id}/recent","Most Recent") }} </h5></li>
+                  <li data-toggle="modal" class ="sans"> <h5>{{ link_to("/subjects/{$subject->id}/popular","Most Popular") }} </h5></li>
+                 
+                <!--li><a href ="#" onclick = "viewby(0)" data-toggle="modal"class ="sans"><h5>Most Recent</h5></a>  </li>
+                  <li><a href = "#" onclick = "viewby(1)" data-toggle="modal"class ="sans"><h5>Most Popular </h5></a></li>
+                 -->
                   </ul>
 
                   </li>
@@ -149,15 +169,18 @@
                 @endforeach
                 
                </div>
-
-               </div>
-           
+              
+                {{$reviews->links()}}
+             
+                 </div>
              </div> 
              </div>
 
 
 <!--to show new review-->
 
+           @if($isRelated == true)
+           
              <div id ="tab-2">
              <div class ="info">
            
@@ -318,7 +341,33 @@
               
                 </div>
                  <hr>
-                   
+                  
+                <div class ="col-sm-6 ">
+
+                 <div class ="panel panel-default">
+
+                             <h4 class = "text-center"><strong>  User Contribution</strong></h4>
+                             <br>
+                 
+                         <div id ="bijay">
+                        
+                        <table class ="table table-bordered table-striped">
+                              <tbody>
+
+                         @foreach($user_resources as $user_resource)
+                                <tr> 
+                                <td style="width:45%"><h6><i class="fa fa-user" style="margin-right:2px"></i>{{ link_to("/users/{$user_resource->user_id}",$user_resource->name) }}</h6></td>
+                                <td><p><a href={{$user_resource->link}} >{{$user_resource->caption}}</a></p></td>
+                                </tr>       
+                         @endforeach 
+
+                             </tbody> 
+                       </table>
+                
+                         </div>
+
+                 </div>
+                </div>  
                   <div class = "col-sm-6 thumbnail">     
                   <h4 class = "text-center"><strong>Share your knowledge </strong></h4>
                    <hr>
@@ -351,36 +400,15 @@
                  <button  type="button" style ="margin-right:15px"  onclick="contribution()" class ="btn btn-primary rightshift" >Submit</button>
                 
                   </div>
-                 
-                <div class ="col-sm-6 ">
-
-                 <div class ="panel panel-default">
-
-                             <h4 class = "text-center"><strong>  User Contribution</strong></h4>
-                             <br>
-                 
-                         <div id ="bijay">
-                         <table class ="table table-bordered table-striped">
-                              <tbody>
-
-                         @foreach($user_resources as $user_resource)
-                                <tr> 
-                                <td style="width:45%"><h6><i class="fa fa-user" style="margin-right:2px"></i>{{ link_to("/users/{$user_resource->user_id}",$user_resource->name) }}</h6></td>
-                                <td><p><a href={{$user_resource->link}} >{{$user_resource->caption}}</a></p></td>
-                                </tr>       
-                         @endforeach 
-
-                             </tbody> 
-                       </table>
-                
-                         </div>
-
-                 </div>
-                </div>                 
+                                 
                       </div>
        </div>
 
-</div>
+
+    </div>
+  
+    @endif
+
 </div>
 </div>
 
@@ -389,11 +417,21 @@
 
 <script>
 
-function viewby()
+function viewby(which_one)
 {
         
-    alert("abc");
-
+         var host = "{{URL::to('/')}}";
+         var id = {{$subject->id}};
+     
+         $.ajax({
+         type: "GET",
+         url: host + '/subjects/' + id,
+         data: {which_one:which_one},
+         success:function(msg){
+            
+       
+                  }
+         });
 }
 
 function contribution()

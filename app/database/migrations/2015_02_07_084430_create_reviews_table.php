@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration {
             $table->text('content');
             $table->integer('upvote');
             $table->integer('downvote');
+            $table->integer('popularity_index');
 			$table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
