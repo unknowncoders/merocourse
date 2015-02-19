@@ -10,28 +10,49 @@
 
 @section('content')
 
+   {{HTML::style('css/styles.css')}}
+
+       <div class ="container">
+           
+         <div class = "col-sm-13 "> 
             <div>
-                    {{ $course->name }}
+                 <h3>   {{ $course->name }} </h3>
             </div>
             <div>
-                    Duration: 
-                    {{ $course->period }}
+                  <h4>  Duration: {{ $course->period }} </h4>
             </div>
+        </div>
            <br><br> 
-            <div>
-                        @foreach($terms as $term)
+            <div class ="col-sm-3"> 
+            <div class = "row ">
+ 
+            
+   <div id='cssmenu'>
+<ul>
+            @foreach($terms as $term)
+   <li class='has-sub'><a href='#'><span>{{ $term->name}}</span></a>
+      <ul>
 
-                            <div>
-                                {{ $term->name}}
-                            </div>
+          @foreach($term['subjects'] as $subject)
+         <li><a href='#'><span> {{ link_to("/subjects/{$subject->id}",$subject->name) }}</span></a></li>
+          @endforeach
+ 
+      </ul>
+   </li>
+         @endforeach
+</ul>
+</div>
 
-                            <div>
-                                @foreach($term['subjects'] as $subject)
-                                    <li> {{ link_to("/subjects/{$subject->id}",$subject->name) }} </li>
-                                @endforeach
+          </div>
+           </div>
+         <div class ="col-sm-1"></div>
+           <div class = "col-sm-8 thumbnail">
+            <p>Computer engineering </p> 
+           </div>
+       </div>
 
-                            </div>
+{{HTML::script('http://code.jquery.com/jquery-latest.min.js')}}
+{{HTML::script('js/script.js')}}
 
-                        @endforeach
-            </div>
+
 @stop
