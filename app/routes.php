@@ -78,15 +78,13 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::get('/','PagesController@home');
           Route::resource('users','UsersController',['except'=>['create','store','destroy']]);
 
-          Route::resource('courses','CourseController',['only'=>['show']]);
+          Route::resource('courses','CourseController',['only'=>['show','store']]);
           Route::resource('subjects','SubjectController',['only'=>['show','store']]); 
 
           Route::get('subjects/{subjects}/{filter?}',[
                 'as' => 'subjects.show',
                 'uses' => 'SubjectController@show',
           ]);
-                  //])->where('filter','[a-z]+')
-          //
 
           Route::post('users/unfollow',[
                 'uses' => 'UsersController@unfollow',
@@ -111,7 +109,11 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::post('subjects/updaterating',[
                 'uses' => 'SubjectController@updaterating',
                     ]);
-
+        
+          Route::post('courses/deletereview',[
+                'uses' => 'CourseController@deletereview',
+                    ]);
+            
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){

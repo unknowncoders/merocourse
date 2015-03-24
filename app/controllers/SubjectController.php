@@ -56,6 +56,7 @@ class SubjectController extends \BaseController {
                 $diff_rate =  DifficultyRating::where('user_id',Auth::user()->id)->where('subject_id',$subject->id)->first();
                 $int_rate = InterestRating::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->first();
 
+                //to check the written tab at your thought tab
                 $already_written = Review::where('user_id', Auth::user()->id)->where('subject_id',$subject->id)->first();
 
                 foreach($user_resources as $user_resource)

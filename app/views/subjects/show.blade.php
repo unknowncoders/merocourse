@@ -110,13 +110,10 @@
                   
                   <ul class ="dropdown-menu">
               
-                  <li data-toggle="modal" class ="sans"> <h5>{{ link_to("/subjects/{$subject->id}/recent","Most Recent") }} </h5></li>
-                  <li data-toggle="modal" class ="sans"> <h5>{{ link_to("/subjects/{$subject->id}/popular","Most Popular") }} </h5></li>
+                  <li data-toggle="modal" class ="sans" style="margin-left:10px"> <h5>{{ link_to("/subjects/{$subject->id}/recent","Most Recent") }} </h5></li>
+                  <li data-toggle="modal" class ="sans" style="margin-left:10px"> <h5>{{ link_to("/subjects/{$subject->id}/popular","Most Popular") }} </h5></li>
                  
-                <!--li><a href ="#" onclick = "viewby(0)" data-toggle="modal"class ="sans"><h5>Most Recent</h5></a>  </li>
-                  <li><a href = "#" onclick = "viewby(1)" data-toggle="modal"class ="sans"><h5>Most Popular </h5></a></li>
-                 -->
-                  </ul>
+                 </ul>
 
                   </li>
 

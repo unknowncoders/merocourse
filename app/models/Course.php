@@ -10,6 +10,14 @@ class Course extends \Eloquent {
         return $this->belongsToMany('Term','CourseTerms');
     }
 
+    //to display the reviews of the course
+
+    public function coursereviews()
+    {
+
+           return $this->hasMany('Coursereview','course_id');
+    }
+
 
     public function users(){
         return $this->belongsToMany('User','UserCourse','course_id','user_id');
