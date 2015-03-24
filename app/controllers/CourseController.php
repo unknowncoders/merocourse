@@ -75,7 +75,20 @@ class CourseController extends \BaseController {
                                 $review['usr_vote']= $vote->vote;
                         }
                 }
-            return View::make('courses.show',compact(['course','reviews','already_written','terms','auth_user']));
+     
+            $isRelated = false;
+            $cnt =0;
+            
+              $userCourses = Auth::user()->courses;
+            
+                        foreach($userCourses as $userCourse){
+                            if($course->id == $userCourse->id){
+                                $isRelated = true;
+                               break; 
+                            }
+                        }
+
+            return View::make('courses.show',compact(['isRelated','course','reviews','already_written','terms','auth_user']));
 	}
 
     public function store()

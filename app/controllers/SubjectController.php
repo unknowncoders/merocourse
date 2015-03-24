@@ -98,9 +98,10 @@ class SubjectController extends \BaseController {
                         
                 }
 
-
                 return View::make('subjects.show',compact(['subject','courses','already_written','diff_rate','int_rate','reviews','auth_user','user_resources','admin_resources','isRelated']));
+        
         }
+        
         //user to store the rating of the subject
 
         public function deletereview()

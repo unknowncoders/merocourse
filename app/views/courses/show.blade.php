@@ -56,8 +56,14 @@
 <div id = "horizontalTab">
         <ul>
            <li><a href="#tab-1"><h4>Review</h4></a></li>
-           <li><a href="#tab-2"><h4> Your Thoughts</h4></a></li>
-           </ul>
+ 
+           @if($isRelated == true)
+           
+          <li><a href="#tab-2"><h4> Your Thoughts</h4></a></li>
+        
+         @endif
+    
+        </ul>
              <div id="tab-1">
             <div class ="info"> 
             <div id ="thapa"> 
@@ -142,11 +148,15 @@
             </div>
             </div>  
 
+
+           @if($isRelated == true)
+           
             <div id="tab-2">
             <div class ="info"> 
 
 
-           <div id = "already_written">                
+            <div id = "already_written">                
+           
                @if($already_written == null || $already_written == "")
 
                   <div class  = "col-sm-3"> 
@@ -185,10 +195,12 @@
              </div>
               </div>
               </div> 
-    </div>
-    </div>
-
-     </div>
+ @endif
+   
+        </div>
+        </div>
+    
+       </div>
        </div>
 
 {{HTML::script('js/jq.js')}}
