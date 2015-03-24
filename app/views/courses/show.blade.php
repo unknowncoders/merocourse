@@ -60,9 +60,11 @@
            </ul>
              <div id="tab-1">
             <div class ="info"> 
-        <div id ="thapa"> 
+            <div id ="thapa"> 
 
-         @foreach($reviews as $review)
+        <div class ="col-sm-13 " >
+      
+    @foreach($reviews as $review)
 
                 <div class ="col-sm-3 "> 
                   <h4><i class="fa fa-user fa-2x" style="margin-right:10px"></i>{{ link_to("/users/{$review->user->id}",$review->user->name) }}</h4> 
@@ -74,10 +76,25 @@
                     <br>
                 </div>
 
+
+                <div class ="col-sm-13 " style ="text-align:right">
+           
+                    <p>Hello</p>                  
+                  
+              <hr>
+
+               </div>
+ 
+
            @endforeach
 
+       
             </div>
-           
+ 
+           {{$reviews->links()}} 
+             
+            </div> 
+          
             </div>
             </div>  
 
@@ -125,9 +142,9 @@
               </div>
               </div> 
     </div>
-   </div>
-
     </div>
+
+     </div>
        </div>
 
 {{HTML::script('js/jq.js')}}
