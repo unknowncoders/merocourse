@@ -1,0 +1,67 @@
+
+.tutorialMenu {
+padding: 10px 0;
+margin:0;
+list-style-type: none;
+}
+
+.tutorialMenu .htwo {
+margin:5px 0;
+padding:0;
+}
+
+.tutorialMenu .htwo a {
+font-size: 18px;
+display: block;
+font-weight: normal;
+color:black;
+text-decoration:none;
+margin:0;
+padding:10px;
+background:#d3d3d3;
+position:relative;
+}
+
+.tutorialMenu :not(:target) .htwo a {
+background:#d3d3d3;
+position:relative;
+}
+.tutorialMenu .htwo a:hover,
+.tutorialMenu .htwo a:active,
+.tutorialMenu .htwo a:focus {
+background-color:#d3d3d3;
+}
+.tutorialMenu :target .ppp,
+.tutorialMenu :not(:target) .ppp {
+padding:0;
+margin:0;
+height:0;
+overflow: hidden;
+-moz-transition: height 1.5s ease-in;
+-webkit-transition: height 1.5s ease-in;
+-o-transition: height 1.5s ease-in;
+transition: height 1.5s ease-in;
+}
+.tutorialMenu :target .ppp {
+height:100px;
+}
+.tutorialMenu #coffeecards .ppp,
+.tutorialMenu #blogcomments .ppp,
+.tutorialMenu #onlineform .ppp {
+
+position:relative;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+.tutorialMenu .ppp {
+height:100px;
+}
+
+.tutorialMenu .htwo a,
+.tutorialMenu :not(:target) .ppp  {
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
