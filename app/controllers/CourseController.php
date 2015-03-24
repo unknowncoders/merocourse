@@ -29,8 +29,19 @@ class CourseController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Course $course)
+	public function show(Course $course, $filter = 'recent')
 	{
+
+            //to get the review of course
+        
+            if( $filter =='recent')
+                {
+                        $reviews = $course->coursereviews()->orderBy('created_at','DESC')->paginate(1);
+                }
+                elseif($filter == 'popular')
+                {
+                        $reviews = $course->coursereviews()->orderBy('popularity_index','DESC')->paginate(1); 
+                }
 
             $course['period'] = $course->durationToStr();
             
@@ -48,10 +59,6 @@ class CourseController extends \BaseController {
             //to check the written tab at your thought tab
             $already_written = Coursereview::where('user_id', Auth::user()->id)->where('course_id',$course->id)->first();
             
-
-            //to get the review of course
-              
-            $reviews = $course->coursereviews()->paginate(1);
           
              //to get the total up and down of the reviews
             

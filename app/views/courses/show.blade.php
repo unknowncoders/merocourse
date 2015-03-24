@@ -63,7 +63,31 @@
             <div id ="thapa"> 
 
         <div class ="col-sm-13 " >
-      
+  
+                <div class="col-sm-13">
+                 <div class ="navbar-collapse collapse">
+                  <ul class ="nav navbar-nav navbar-right">
+                
+                      <li><a href = ""><h5>View Review By :</h5></a></li>
+                      <li class ="dropdown">
+                      <a href="#" class ="dropdown-toggle" data-toggle ="dropdown">
+                      <h5><b class ="caret"></b></h5></a>
+                      </a>
+                  
+                  <ul class ="dropdown-menu">
+              
+                  <li data-toggle="modal" class ="sans" style="margin-left:10px"> <h5>{{ link_to("/courses/{$course->id}/recent","Most Recent") }} </h5></li>
+                  <li data-toggle="modal" class ="sans" style="margin-left:10px"> <h5>{{ link_to("/courses/{$course->id}/popular","Most Popular") }} </h5></li>
+                 
+                 </ul>
+
+                  </li>
+
+                  </ul>   
+
+              </div>
+            <br><br><br>
+             </div>     
     @foreach($reviews as $review)
 
                 <div class ="col-sm-3 "> 
