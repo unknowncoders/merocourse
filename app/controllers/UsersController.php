@@ -114,11 +114,20 @@ class UsersController extends \BaseController {
             });
 
             $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+            
+            $course_reviews = $user->course_reviews()->orderBy('created_at','DESC')->get();
+ 
             foreach($reviews as $review){
                     $subjectStr[] = $review->subject->name;
+                      
             }
 
-            return View::make('users.show',compact(['user','courses','auth_user','filteredCourses','reviews','subjectStr']));
+            foreach($course_reviews as $course_review){
+                    $courseStr[] = $course_review->course->name;
+            
+            }
+
+            return View::make('users.show',compact(['user','course_reviews','courses','auth_user','filteredCourses','reviews','subjectStr','courseStr']));
 
 	}
 

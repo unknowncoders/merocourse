@@ -330,12 +330,14 @@
 
            <div id ="tab-3">
              <div class ="info">
-                <div class ="col-sm-13  thumbnail">
-              
+                <div class ="col-sm-13 ">
+             <ul> 
                   @foreach($admin_resources as $admin_resource)
-                     <a href ="#" class ="col-sm-2 btn btn-success"  role="button" style ="margin-right:15px">  {{$admin_resource->caption}} </a>
+                    <li> <a href ="{{$admin_resource->link}}" target ="_blank"  >  {{$admin_resource->caption}} </a></li>
+                    <br>
+
                   @endforeach
-              
+            </ul> 
                 </div>
                  <hr>
                   
@@ -354,7 +356,7 @@
                          @foreach($user_resources as $user_resource)
                                 <tr> 
                                 <td style="width:45%"><h6><i class="fa fa-user" style="margin-right:2px"></i>{{ link_to("/users/{$user_resource->user_id}",$user_resource->name) }}</h6></td>
-                                <td><p><a href={{$user_resource->link}} >{{$user_resource->caption}}</a></p></td>
+                                <td><p><a href={{$user_resource->link}} target ="_blank"> {{$user_resource->caption}}</a></p></td>
                                 </tr>       
                          @endforeach 
 
