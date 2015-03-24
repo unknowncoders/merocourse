@@ -113,7 +113,10 @@ Route::group(['before'=>'auth|confirmed'],function(){
           Route::post('courses/deletereview',[
                 'uses' => 'CourseController@deletereview',
                     ]);
-            
+          Route::post('courses/voting',[
+                'uses' => 'CourseController@postvoting',
+                    ]);
+
 });
 
 Route::group(['before'=>'auth|confirmed|admin','prefix'=>'admin'],function(){

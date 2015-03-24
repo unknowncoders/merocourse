@@ -4,11 +4,6 @@
     Activate your account.
 @stop
 
-@section('header')
-
-    @include('resources.subject_header')
-
-@stop
 
 @section('content')
 
