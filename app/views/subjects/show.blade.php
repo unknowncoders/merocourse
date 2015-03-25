@@ -333,7 +333,7 @@
                 <div class ="col-sm-13 ">
              <ul> 
                   @foreach($admin_resources as $admin_resource)
-                    <li> <a href ="{{$admin_resource->link}}" target ="_blank"  >  {{$admin_resource->caption}} </a></li>
+                    <i class="fa fa-angle-double-right"></i> <a href ="{{$admin_resource->link}}" target ="_blank"  >  {{$admin_resource->caption}} </a>
                     <br>
 
                   @endforeach

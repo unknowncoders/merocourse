@@ -61,7 +61,7 @@ MeroCourse | Home
    <div id='cssmenu'>
 <ul class="ul">
             @foreach($course_reviews as $course_review)
-   <li ><a  href='#'><span class="span"><h5><strong>{{ $courseStr[$indexCnt] }}</strong></h5></span></a>
+   <li ><a  href='#'><span class="span"><h5><strong><i class="fa fa-angle-double-right"></i>&nbsp;{{ $courseStr[$indexCnt] }}</strong></h5></span></a>
       <ul class="ul">
 
 <br><p> {{ $course_review->content }} </p >
@@ -82,7 +82,7 @@ MeroCourse | Home
    <div id='cssmenu'>
 <ul class="ul">
             @foreach($reviews as $review)
-   <li ><a  href='#' ><span class="span"><h5><strong>{{ $subjectStr[$indexCnt] }}</strong></h5></span></a>
+   <li ><a  href='#' ><span class="span"><h5><strong><i class="fa fa-angle-double-right"></i>&nbsp;{{ $subjectStr[$indexCnt] }}</strong></h5></span></a>
       <ul class="ul">
 
 <br><p> {{ $review->content }} </p >
@@ -106,16 +106,6 @@ MeroCourse | Home
 
 
 <script>
-$("#show1").click(function(){
-        $("#item").toggle();
-        $("#button1").toggle();
-        $("#button2").toggle();
-});
-$("#show2").click(function(){
-        $("#item").toggle();
-        $("#button1").toggle();
-        $("#button2").toggle();
-});
 function unfollow(course_id){
         var host = "{{URL::to('/')}}";
         $.ajax({
